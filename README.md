@@ -7,7 +7,7 @@ Most importantly, the mini-Scan replaces the time-consuming process of using the
 
 ## Hardware
 
-Preferably the device connects to the SLAC network via WiFi; however if this is not possible the pi has an ethernet port.  If only the power cable is needed then the devices can be attached to the wall next to the dosimeter racks, which will enable us to place more scanners in the field..
+Preferably the device connects to the SLAC network via WiFi; however if this is not possible the pi has an ethernet port.  If only the power cable is needed then the devices can be attached to the wall next to the dosimeter racks, which will enable us to place more scanners in the field.
 
 Hardware consists of the following:
 * Raspberry Pi version 4
