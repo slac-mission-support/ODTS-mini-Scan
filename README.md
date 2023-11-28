@@ -11,7 +11,7 @@ Hardware consists of the following:
 * Raspberry Pi version 4
 * Adafruit USB barcode scanner
 * 2 x 16 character LCD display using I2C protocol
-* RGD Led diode
+* RGB Led diode
 * Terminal block breakout board for Raspberry Pi (optional)
 * 90 degree USB connector
 * 6 x 4 x 2" project box with clear lid
