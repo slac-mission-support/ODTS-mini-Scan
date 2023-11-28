@@ -19,3 +19,9 @@ Hardware consists of the following:
 * 22 AWG wiring kit
 
 ## Software
+
+Software is in the form of python scripts used to control the GPIO, and to connect and make transactions into the ODTS database.  The python file is intended to reside in the rc.local file where it will run on boot and continuously thereafter (Edit the file using the following terminal command: sudo nano /etc/rc.local).  The software specification (for the python script) is outlined in the attached Word document.
+
+* I2C Library File
+* Python script
+* Software specification (Word file)
