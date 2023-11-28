@@ -1,7 +1,9 @@
 # ODTS-mini-Scan
 Created November, 2023
 
-The purpose of the mini-Scan is to enable users of the personal dosimeter service to register dosimeter returns directly into ODTS and receive an email confirmation.  This transaction is intended to reduce or eliminate cases where the user states they've returned it, but the dosimetry group hasn't received it.  More importantly, the transaction supplies written proof of the return via email.
+The purpose of the mini-Scan is to enable users of the personal dosimeter service to register dosimeter returns directly into ODTS and receive an email confirmation.  This transaction is intended to reduce or eliminate cases where the user states they've returned it, but the dosimetry group hasn't received it.  Furthermore, the transaction supplies written proof of the return via email.
+
+Most importantly, the mini-Scan replaces the time-consuming process of using the "Return Dosimeters" utility in ODTS with a single scan on the device.
 
 ## Hardware
 
