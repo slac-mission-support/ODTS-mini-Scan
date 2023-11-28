@@ -7,6 +7,8 @@ Most importantly, the mini-Scan replaces the time-consuming process of using the
 
 ## Hardware
 
+Preferably the device connects to the SLAC network via WiFi; however if this is not possible the pi has an ethernet port.  If only the power cable is needed then the devices can be attached to the wall next to the dosimeter racks, which will enable us to place more scanners in the field..
+
 Hardware consists of the following:
 * Raspberry Pi version 4
 * Adafruit USB barcode scanner
@@ -20,10 +22,13 @@ Hardware consists of the following:
 * 2.0 mm, 2.5 mm, 3.0 mm standoff kit
 * 22 AWG wiring kit
 
-## Software
+## Software (onboard)
 
 Software is in the form of python scripts used to control the GPIO, and to connect and make transactions into the ODTS database.  The python file is intended to reside in the rc.local file where it will run on boot and continuously thereafter (Edit the file using the following terminal command: sudo nano /etc/rc.local).  The software specification (for the python script) is outlined in the attached Word document.
 
 * I2C Library File
 * Python script
-* Software specification (Word file)
+* Software specification (file) Word file)
+
+## Software (web)
+* System Health viewer (see Word file)
