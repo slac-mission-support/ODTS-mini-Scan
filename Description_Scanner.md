@@ -1,4 +1,4 @@
-# Description
+# Barcode Scanner Description
 
 Decode nearly any kind of 1D (striped) barcode in your project using this adorable compact barcode scanner. We've looked all over for a small, light, low-power module that can be easily integrated. This OEM scanner has a little camera inside that takes 100 photos per second, instead of using a 'scanning mirror' assembly. This means its less likely to get damaged or out of alignment. 
 
