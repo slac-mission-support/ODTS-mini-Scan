@@ -22,7 +22,7 @@ Hardware consists of the following:
 * 2.0 mm, 2.5 mm, 3.0 mm standoff kit
 * 22 AWG wiring kit
 
-![Pi](https://github.com/ryanfordSLAC/ODTS-mini-Scan/blob/main/Device-2.jpg)
+![Pi](https://github.com/ryanfordSLAC/ODTS-mini-Scan/blob/main/Photos/Device-2.jpg)
 ## Software (onboard)
 
 Software is in the form of python scripts used to control the GPIO, and to connect and make transactions into the ODTS database.  The python file is intended to reside in the rc.local file where it will run on boot and continuously thereafter (Edit the file using the following terminal command: sudo nano /etc/rc.local).  The software specification (for the python script) is outlined in the attached Word document.
