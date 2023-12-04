@@ -14,6 +14,7 @@ Contains sql commands and connection information to write successful scan metada
 -update_SQLlite_tally()
 
 ## rgb light library
+Controls the RGB LED light (common anode type), connected to pi on 4 pins.  Note flashing option flashes 10 times at 0.2 seconds per flash.
 - red(option), where ooption 1 is steady light, and option 2 is flashing
 - blue(option), where ooption 1 is steady light, and option 2 is flashing
 - green(option), where ooption 1 is steady light, and option 2 is flashing
