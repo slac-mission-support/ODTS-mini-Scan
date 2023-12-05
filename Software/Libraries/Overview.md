@@ -4,16 +4,16 @@
 Connects to an smtp server and sends an email
 - email.send_email(slac_ID, name, recipients, return_date, period_code, dosimeter_number, body_option)
 
-## fetch data library (ODTS.py)
+## Query and Update ODTS library (ODTS.py)
 Contains sql commands and connection information to connect to ODTS.
 - odts.fetch_data_using_dosinumber()
 - odts.update_ODTS_return_date()
 
-## tally scans library (sqlite_tally.py)
+## tally scans library in SQLite (sqlite_tally.py)
 Contains sql commands and connection information to write successful scan metadata into a SQLite DB on localhost.
 - tally_sqlite.update_SQLlite_tally()
 
-## rgb light library (class_rgb.py)
+## RGB light library (class_rgb.py)
 Controls the RGB LED light (common anode type), connected to pi on 4 pins.  Note flashing state flashes 10 times at 0.2 seconds per flash.
 - LED.red(state), where state 1 is steady light, and state 2 is flashing
 - LED.blue(state), where state 1 is steady light, and state 2 is flashing
