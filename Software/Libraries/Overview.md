@@ -15,14 +15,14 @@ Contains sql commands and connection information to write successful scan metada
 
 ## rgb light library
 Controls the RGB LED light (common anode type), connected to pi on 4 pins.  Note flashing option flashes 10 times at 0.2 seconds per flash.
-- LED.red(option), where ooption 1 is steady light, and option 2 is flashing
-- LED.blue(option), where ooption 1 is steady light, and option 2 is flashing
-- LED.green(option), where ooption 1 is steady light, and option 2 is flashing
-- LED.yellow(option), where ooption 1 is steady light, and option 2 is flashing
-- LED.purple(option), where ooption 1 is steady light, and option 2 is flashing
-- LED.lightBlue(option), where ooption 1 is steady light, and option 2 is flashing
-- LED.white(option), where ooption 1 is steady light, and option 2 is flashing
-- LED.turnOff(option), where ooption 1 is steady light, and option 2 is flashing
+- LED.red(option), where option 1 is steady light, and option 2 is flashing
+- LED.blue(option), where option 1 is steady light, and option 2 is flashing
+- LED.green(option), where option 1 is steady light, and option 2 is flashing
+- LED.yellow(option), where option 1 is steady light, and option 2 is flashing
+- LED.purple(option), where option 1 is steady light, and option 2 is flashing
+- LED.lightBlue(option), where option 1 is steady light, and option 2 is flashing
+- LED.white(option), where option 1 is steady light, and option 2 is flashing
+- LED.turnOff(option), where option 1 is steady light, and option 2 is flashing
 
 
 ## 16 x 2 LCD Display Default Message Library
