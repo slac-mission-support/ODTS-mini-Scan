@@ -25,7 +25,7 @@ Controls the RGB LED light (common anode type), connected to pi on 4 pins.  Note
 - LED.turnOff(option), where option 1 is steady light, and option 2 is flashing
 
 
-## 16 x 2 LCD Display Default Message Library
+## 2 x 16 LCD Display Default Message Library
 Contains standard messages shown in the software specification
 - LCD.message(message_number), where message_numbers 1 - 10 represent the messages in the specification.
 
