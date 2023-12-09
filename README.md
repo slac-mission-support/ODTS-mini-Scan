@@ -15,12 +15,13 @@ Hardware consists of the following:
 * 2 x 16 character LCD display using I2C protocol
 * RGB Led diode
 * Terminal block breakout board for Raspberry Pi (optional)
-* 90 degree USB connector
-* 6 x 4 x 2" project box with clear lid
+* 90 degree USB connector (optional)
+* Project box for tabletop or wall mount
 * USB-C charger/power supply
 * Custom mounting board
 * 2.0 mm, 2.5 mm, 3.0 mm standoff kit
 * 22 AWG wiring kit
+* Momentary push button (pre-wired)
 
 ![Pi](https://github.com/ryanfordSLAC/ODTS-mini-Scan/blob/main/Photos/Device-2.jpg)
 ## Software (onboard)
