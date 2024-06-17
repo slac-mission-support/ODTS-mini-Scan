@@ -1,1 +1,5 @@
+See incident INC0452166
 
+Readers to use PSK security format
+Readers to have dedicated IP address
+Readers will connect to SLAC network
