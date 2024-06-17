@@ -1,1 +1,46 @@
+See Incident RITM0049406
 
+VS
+Venkata Samineni
+Additional comments•2024-06-06 17:53:34
+Created following two views to query the data
+DOSE_TEST.DOSIMETER_ISSUED_VW
+
+DOSIMETER VARCHAR2(10)
+PERIOD_CODE VARCHAR2(7)
+PERSON_ID NUMBER
+NAME VARCHAR2(50)
+EMAIL VARCHAR2(80)
+SUPERVISOR_ID NUMBER
+SUP_NAME VARCHAR2(30)
+SUP_EMAIL VARCHAR2(80)
+RETURN_DATE DATE
+
+
+DOSE_TEST.DOSIMETER_UNRETUNED_VW
+
+DOSIMETER VARCHAR2(10)
+PERIOD_CODE VARCHAR2(7)
+PERSON_ID NUMBER
+NAME VARCHAR2(50)
+EMAIL VARCHAR2(80)
+SUPERVISOR_ID NUMBER
+SUP_NAME VARCHAR2(30)
+SUP_EMAIL VARCHAR2(80)
+RETURN_DATE DATE
+
+
+Created a function to update the return date. It takes two parameters dosimeter number (string), host name (string) and returns error/success message
+DOSE_TEST.UPDATE_RETUN_DT
+
+Select and execute privileges were granted to ODTSSCAN Oracle user.
+
+Here are some example SQL queries
+select * from DOSE_TEST.DOSIMETER_ISSUED_VW where dosimeter = '0230015J';
+
+select * from DOSE_TEST.DOSIMETER_UNRETUNED_VW where dosimeter = '7971800K';
+
+select * from DOSE_TEST.DOSIMETER_UNRETUNED_VW where person_id = 171450;
+
+
+These changes are deployed into EPNQA databases for testing. Please let me know if you have any questions
