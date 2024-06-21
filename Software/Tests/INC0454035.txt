@@ -1,0 +1,11 @@
+INC0454035
+
+MM
+Matthew Mountz
+Additional comments•2024-06-21 12:34:57
+Oracle access (1521/TCP) from ODTSSCAN01 (172.26.47.140) to DMZ-BIS-DB (172.23.124.0/26) should now be permitted.
+
+Please test and verify.
+
+Thanks,
+~Matt
