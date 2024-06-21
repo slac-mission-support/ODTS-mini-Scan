@@ -1,0 +1,20 @@
+Local SQLite DB Specs:
+
+Main database:  ODTSSCAN01.db (increment for subsequent readers)
+Main table:  return_history
+  Columns:
+    host          string
+    transx_type   string
+    transx_date    string
+    dosinumber      string
+    slacid        integer
+
+
+transx_date is populated with "DATETIME('now')" function
+transx_type will generally be populated with "returned", but later may be expanded to record bad transactions
+
+Sample query:
+
+cur.execute("""
+  INSERT INTO return_history VALUES
+    ('ODTSSCAN01', 'RETURN', DATETIME('now'), '0123456J', 400777)""")
