@@ -1,5 +1,7 @@
 Local SQLite DB Specs:
 
+Database resides in:  /home/ryanford/Documents/Python
+
 Main database:  ODTSSCAN01.db (increment for subsequent readers)
 Main table:  return_history
   Columns:
