@@ -7,6 +7,7 @@ import class_rgb
 import asyncio
 import LCD_messages
 #test
+#test2
 
 mylcd = I2C_LCD_driver.lcd()
 myled = class_rgb.LED()
