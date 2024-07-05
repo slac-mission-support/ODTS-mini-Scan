@@ -12,8 +12,8 @@ myled = class_rgb.LED()
 mymessage = LCD_messages.messages()
 
 def read_barcode_one_time():
-	#print(f'\ncalled read_barcode_one_time()')
-	#print("awaiting input")
+	print(f'\ncalled read_barcode_one_time()')
+	print("awaiting input")
 	barcode_input = input("Scan a barcode: ")
 	print(f"Scanned barcode:  {barcode_input}")
 	return barcode_input
@@ -22,7 +22,7 @@ def read_barcode_one_time():
 	
 while program_status:
 		mylcd.backlight(0)
-		myled.red(2)
+		myled.green(2)
 		mylcd.lcd_clear()
 		barcode_input = read_barcode_one_time()
 		mymessage.message2(barcode_input)
@@ -33,3 +33,4 @@ while program_status:
 		mylcd.backlight(0)
 		program_status = False
 	
+
