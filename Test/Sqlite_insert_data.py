@@ -3,7 +3,7 @@ import os
 import datetime
 
 
-os.chdir("/home/ryanford/Documents/Python/Test")
+os.chdir("/home/ryanford/ODTS-mini-Scan/Test")
 
 class sqlite:
         

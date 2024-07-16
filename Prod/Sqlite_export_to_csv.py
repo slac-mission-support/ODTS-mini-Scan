@@ -12,7 +12,7 @@ pd.set_option('display.width', 1000)
 
 
 
-os.chdir("/home/ryanford/Documents/Python/Prod")
+os.chdir("/home/ryanford/Documents/ODTS-mini-Scan/Prod")
 
 conn = sqlite3.connect('prod_records.db', isolation_level=None,
                        detect_types=sqlite3.PARSE_COLNAMES)
