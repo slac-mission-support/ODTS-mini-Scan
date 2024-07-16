@@ -1,0 +1,23 @@
+Scheduling file updates is accomplished with crontab
+
+from command prompt enter
+
+crontab -e
+to edit the existing file
+
+file contents should show:
+* * * * * /usr/bin/python /home/ryanford/ODTS-mini-Scan/Test/check_for_updates.py (substitute /Test or /Prod)
+
+minute
+hour
+day
+day of month
+month
+day of week
+
+For weekly use:
+* * * * 1
+For daily midnight
+0 5 * * *
+
+the check_for_updates changes directory to ODTS-mini-Scan, then executes "git pull"
