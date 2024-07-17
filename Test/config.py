@@ -13,8 +13,7 @@ def create_config():
     config.set('Database','ODTS_username','ODTSSCAN')
     config.set('Database','ODTS_password',"akUD,38%49]bnkDU")
     config.set('Database','ODTS_db_name','epndev.slac.stanford.edu/EPNQA')
-    config.set('General', 'foo', 'fighter')
-    
+
     with open("config.ini", 'w') as configfile:
         config.write(configfile)
         configfile.flush()
