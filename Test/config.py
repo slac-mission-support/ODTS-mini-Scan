@@ -14,19 +14,21 @@ def create_config():
     config.set('Database','ODTS_password',"akUD,38%49]bnkDU")
     config.set('Database','ODTS_db_name','epndev.slac.stanford.edu/EPNQA')
 
-    with open(r"config.ini", 'w') as configfile:
+    with open("config.ini", 'w') as configfile:
         config.write(configfile)
         configfile.flush()
         configfile.close()
 
     print("Config File Created")
 
+if __name__== '__main__':
+    create_config()
 
 
-# read_file = open("config.ini", "r")
-# content = read_file.read()
-# print("Contents:\n")
-# print(content)
-# read_file.flush()
-# read_file.close()
+read_file = open("config.ini", "r")
+content = read_file.read()
+print("Contents:\n")
+print(content)
+read_file.flush()
+read_file.close()
 
