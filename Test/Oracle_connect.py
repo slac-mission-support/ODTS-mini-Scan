@@ -4,6 +4,8 @@ import oracledb
 import pandas as pd
 import LCD_messages
 from time import sleep
+import configparser
+
 # import class_rgb
 # import I2C_LCD_driver
 

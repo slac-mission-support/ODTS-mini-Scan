@@ -12,23 +12,26 @@ import Oracle_connect_function as fn
 import datetime
 import Sqlite_insert_data
 import ping
+import configparser
+
 
 mylcd = I2C_LCD_driver.lcd()
 myled = class_rgb.LED()
 mymessage = LCD_messages.messages()
 mydata3 = Oracle_connect_View3.return_ODTS_view3()
-sleep_interval = 1
+
 myfunction = fn.Oracle_return_dosimeter
 reader_number = 'ODTSSCAN01'
 sqlite = Sqlite_insert_data.sqlite
 myping = ping.network_ping
-
+config = configparser.ConfigParser()
+config.read('config.ini')
 global new_return_date
 new_return_date = datetime.datetime.now()
+sleep_interval = config.get('General','sleep_time')
 
 def read_barcode_one_time():
 
-	#print(f'\ncalled read_barcode_one_time()')
 	print("Awaiting input")
 	barcode_input = input("Scan a barcode: ")
 	print(f"Scanned barcode:  {barcode_input}")
@@ -49,8 +52,7 @@ def read_barcode():
 	mymessage.message2(barcode_input)
 	global captured_barcode
 	captured_barcode = barcode_input
-	#print("Captured: " + captured_barcode)
-	sleep(sleep_interval)	
+	sleep(int(sleep_interval))	
 	return(str(barcode_input))
 
 
@@ -65,10 +67,8 @@ def return_user():
 	person_name = user[0]
 	if str(user) == 'None':
 		mymessage.message7()
-		sleep(sleep_interval)
+		sleep(int(sleep_interval))
 	else:
-		#print(user[0].split(", ")[1])
-		#print(user[0].split(",")[0])
 		firstname = user[0].split(", ")[1]
 		lastname = user[0].split(",")[0]
 		mymessage.message6a(firstname, lastname)
@@ -78,10 +78,10 @@ def return_dosimeter():
 	function_result = myfunction.execute_return(str(captured_barcode), reader_number)
 	if function_result == 'Already Returned':
 		mymessage.message6b(return_date)
-		sleep(sleep_interval)
+		sleep(int(sleep_interval))
 	else:
 		mymessage.message6b(str(datetime.datetime.now())[0:10])
-		sleep(sleep_interval)
+		sleep(int(sleep_interval))
 	
 def write_to_sqlite():
 	if str(return_date) == 'None':
@@ -102,12 +102,10 @@ while program_status:
 		return_dosimeter()
 		write_to_sqlite()
 		shutdown()
-		#program_status = False
 	else:
 		myled.red(2)
 		mymessage.message8()
-		sleep(sleep_interval)
-		#setup()
+		sleep(int(sleep_interval))
 		
 #def compose_email():
 	

@@ -13,14 +13,10 @@ pd.set_option('display.width', 1000)
 
 class sqlite_export:
 
-    config = configparser.ConfigParser()
-    config.read('config.ini')
-
-
-    
     def exported_data():
-        #raspberry pi path
-        local_repo_path = config.get('Database','local_repo_path')
+        config = configparser.ConfigParser()
+        config.read('config.ini')
+        local_repo_path = config.get('Database','local_repo_path')        #raspberry pi path
         os.chdir(local_repo_path)
         #windows path
         #os.chdir("C:/Users/ryanford/OneDrive - SLAC National Accelerator Laboratory/Documents/GitHub/ODTS-mini-Scan/Test")

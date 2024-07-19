@@ -5,10 +5,10 @@ import configparser
 
 class sqlite:
         
-config = configparser.ConfigParser()
-config.read('config.ini')
-local_repo_path = config.get('Database','local_repo_path')
-os.chdir(local_repo_path)
+        config = configparser.ConfigParser()
+        config.read('config.ini')
+        local_repo_path = config.get('Database','local_repo_path')
+        os.chdir(local_repo_path)
         
         def update_sqlite(host, type, person_ID, dosi_ID, name, datetime):
             try:

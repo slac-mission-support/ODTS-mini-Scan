@@ -10,15 +10,19 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 import Sqlite_export_to_csv as exp
 import os
+import configparser
 
 #dataframe_table = Sqlite_export_to_csv.fetch
-os.chdir("C:/Users/ryanford/OneDrive - SLAC National Accelerator Laboratory/Documents/GitHub/ODTS-mini-Scan/Test")
+config = configparser.ConfigParser()
+config.read('config.ini')
+local_path = config.get('Database','local_repo_path')
+sender_email = config.get('General','sender_email')
+os.chdir(local_path)
+data = exp.sqlite_export
 
-df = exp.exported_data()
-#print(df)
+df = data.exported_data()
 df_html = df.to_html(index=False, col_space='150px', justify='center', bold_rows=True, border=1)
 dfPart = MIMEText(df_html, 'html')
-
 
 Last_Name = "Ford"
 First_Name = "Ryan"
@@ -26,7 +30,7 @@ Dosi_Number = "123456J"
 Return_Date = '7-10-24'
 emp_email = 'email1'
 sup_email = 'email2'
-def_email = 'esh-drep@slac.stanford.edu'
+def_email = sender_email
 
 #email address selection
 #def email_selection():
@@ -52,15 +56,18 @@ email_header_2 = ("Dear " + First_Name + ",\n\n"
 email_footer = ("\n\n\nIf you have any questions regarding the dosimetery service, "
                 "please contact ESH-DREP@SLAC.STANFORD.EDU. \n\n\n")
 
+smtp_username = config.get('General','smtp_username')
+smpt_password = config.get('General','smtp_password')
+smtp_host = config.get('General','smtp_host')
+smtp_port = int(config.get('General','smtp_port'))
+
 subject = "Email Subject"
 body0 = email_header_0
 body = email_header_2
 body2 = email_footer
-sender_email = "three25seventy@gmail.com"
+#sender_email = sender_email #will be esh-drep
+sender_email = smtp_username
 recipient_email = "three25seventy@gmail.com"
-sender_password = "jbat iaqc kmvy wvee"
-smtp_server = 'smtp.gmail.com'
-smtp_port = 465
 path_to_file = 'ryan1.txt'
 
 # MIMEMultipart() creates a container for an email message that can hold
@@ -96,6 +103,6 @@ with open(path_to_file,'rb') as file:
 
 # secction 2 for sending email
 
-with smtplib.SMTP_SSL(smtp_server, smtp_port) as server:
-   server.login(sender_email, sender_password)
+with smtplib.SMTP_SSL(smtp_host, smtp_port) as server:
+   server.login(smtp_username, smtp_password)
    server.sendmail(sender_email, recipient_email, message.as_string())
