@@ -1,15 +1,20 @@
 import sqlite3
 import os
 import datetime
-
-
-os.chdir("/home/ryanford/ODTS-mini-Scan/Test")
+import configparser
 
 class sqlite:
         
+config = configparser.ConfigParser()
+config.read('config.ini')
+local_repo_path = config.get('Database','local_repo_path')
+os.chdir(local_repo_path)
+        
         def update_sqlite(host, type, person_ID, dosi_ID, name, datetime):
             try:
-                sqliteConnection = sqlite3.connect('test_records.db')
+                config.read('config.ini')
+                local_db_name = config.get('Database','local_db_name')
+                sqliteConnection = sqlite3.connect(local_db_name)
                 cursor = sqliteConnection.cursor()
                 print("Connected to SQLite")
 
