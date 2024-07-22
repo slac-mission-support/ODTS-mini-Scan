@@ -21,7 +21,6 @@ mymessage = LCD_messages.messages()
 mydata3 = Oracle_connect_View3.return_ODTS_view3()
 
 myfunction = fn.Oracle_return_dosimeter
-reader_number = 'ODTSSCAN01'
 sqlite = Sqlite_insert_data.sqlite
 myping = ping.network_ping
 config = configparser.ConfigParser()
@@ -29,6 +28,7 @@ config.read('config.ini')
 global new_return_date
 new_return_date = datetime.datetime.now()
 sleep_interval = config.get('General','sleep_time')
+reader_number = config.get('General','host_name')
 
 def read_barcode_one_time():
 
