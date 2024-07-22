@@ -57,7 +57,7 @@ email_footer = ("\n\n\nIf you have any questions regarding the dosimetery servic
                 "please contact ESH-DREP@SLAC.STANFORD.EDU. \n\n\n")
 
 smtp_username = config.get('General','smtp_username')
-smpt_password = config.get('General','smtp_password')
+smtp_password = config.get('General','smtp_password')
 smtp_host = config.get('General','smtp_host')
 smtp_port = int(config.get('General','smtp_port'))
 
