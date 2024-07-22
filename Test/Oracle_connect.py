@@ -1,4 +1,4 @@
-#used to find all dosimeters unreturned for a given person ID
+#######used to find all dosimeters unreturned for a given person ID
 #This is 4.2.3 in the specification
 import oracledb
 import pandas as pd
@@ -6,6 +6,8 @@ import LCD_messages
 from time import sleep
 import configparser
 
+config = configparser.ConfigParser()
+config.read('config.ini')
 # import class_rgb
 # import I2C_LCD_driver
 
@@ -28,11 +30,14 @@ class return_ODTS_view1:
 			
 	def return_info(self, person_id):
 		
+		odts_username = config.get('Database','odts_username')
+		odts_password = config.get('Database','odts_password')
+		odts_dsn = config.get('Database','odts_dsn')
 		connection = oracledb.connect (
-			user="ODTSSCAN",
+			user=odts_username,
 			#password is hard coded but should move to a network location and called from here.
-			password="akUD,38%49]bnkDU",
-			dsn="epndev.slac.stanford.edu/EPNQA")
+			password=odts_password,
+			dsn=odts_dsn)
 
 		#person_id = '400777'
 
