@@ -1,8 +1,11 @@
 import oracledb
 import LCD_messages
-from time import sleep
 import class_rgb
 import I2C_LCD_driver
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 
 
 
@@ -20,12 +23,14 @@ class Oracle_return_dosimeter:
 		mymessage.message1()
 		
 	def execute_return(dosi_number, host_name):
-
+		odts_username = config.get('Database','odts_username')
+		odts_password = config.get('Database','odts_password')
+		odts_dsn = config.get('Database','odts_dsn')
 		connection = oracledb.connect (
-			user="ODTSSCAN",
+			user=odts_username,
 			#password is hard coded but should move to a network location and called from here.
-			password="akUD,38%49]bnkDU",
-			dsn="epndev.slac.stanford.edu/EPNQA")
+			password=odts_password,
+			dsn=odts_dsn)
 
 #dosi_number = '6651225J'
 #host_name = 'ODTSSCAN01'

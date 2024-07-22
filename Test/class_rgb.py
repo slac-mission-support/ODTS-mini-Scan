@@ -1,8 +1,14 @@
 #libraries
 import RPi.GPIO as GPIO
 from time import sleep
+import configparser
 
 #disable warnings (optional)
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+local_repo_str = config.get('General','led_flash_sleep_interval')
+local_repo_float = float(local_repo_str)
 
 GPIO.setwarnings(False)
 #Select GPIO Mode
@@ -25,9 +31,9 @@ class LED:
         if state == 2: #flashing
             for i in range(1,10):
                 self.red(1)
-                sleep(0.05)
+                sleep(local_repo_float)
                 self.turnOff(1)
-                sleep(0.05)
+                sleep(local_repo_float)
 
     def green(self, state):
         if state == 1:
@@ -37,9 +43,9 @@ class LED:
         if state == 2:
             for i in range(1,10):
                 self.green(1)
-                sleep(0.05)
+                sleep(local_repo_float)
                 self.turnOff(1)
-                sleep(0.05)
+                sleep(local_repo_float)
             
     def blue(self, state):
         if state == 1:
@@ -49,9 +55,9 @@ class LED:
         if state == 2:
             for i in range(1,10):
                 self.blue(1)
-                sleep(0.05)
+                sleep(local_repo_float)
                 self.turnOff(1)
-                sleep(0.05)
+                sleep(local_repo_float)
             
     def white(self, state):
         if state == 1:
@@ -61,9 +67,9 @@ class LED:
         if state == 2:
             for i in range(1,10):
                 self.white(1)
-                sleep(0.05)
+                sleep(local_repo_float)
                 self.turnOff(1)
-                sleep(0.05)
+                sleep(local_repo_float)
 
     def yellow(self, state):
         if state == 1:
@@ -73,9 +79,9 @@ class LED:
         if state == 2:
             for i in range(1,10):
                 self.yellow(1)
-                sleep(0.05)
+                sleep(local_repo_float)
                 self.turnOff(1)
-                sleep(0.05)
+                sleep(local_repo_float)
     
     def purple(self, state):
         if state == 1:
@@ -85,9 +91,9 @@ class LED:
         if state == 2:
             for i in range(1,10):
                 self.purple(1)
-                sleep(0.05)
+                sleep(local_repo_float)
                 self.turnOff(1)
-                sleep(0.05)
+                sleep(local_repo_float)
             
     def lightBlue(self, state):
         if state == 1:
@@ -97,9 +103,9 @@ class LED:
         if state == 2:
             for i in range(1,10):
                 self.lightBlue(1)
-                sleep(0.05)
+                sleep(local_repo_float)
                 self.turnOff(1)
-                sleep(0.05)
+                sleep(local_repo_float)
         
     def turnOff(self, state):
         if state == 1:

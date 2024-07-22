@@ -4,6 +4,8 @@ import LCD_messages
 from time import sleep
 # import class_rgb
 # import I2C_LCD_driver
+config = configparser.ConfigParser()
+config.read('config.ini')
 
 #This is 4.2.1 in the specification
 #Returns details for a dosimeter regardless of whether it was returned or not
@@ -11,10 +13,7 @@ pd.set_option('display.max_colwidth', None)
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 1000)
-# mymessage = LCD_messages.messages()
-# sleep_interval = 2
-# mylcd = I2C_LCD_driver.lcd()
-# myled = class_rgb.LED()
+
 
 class return_ODTS_view3:
 	
@@ -26,11 +25,14 @@ class return_ODTS_view3:
 		
 	def return_info_view3(self, dosimeter_id):
 		
+		odts_username = config.get('Database','odts_username')
+		odts_password = config.get('Database','odts_password')
+		odts_dsn = config.get('Database','odts_dsn')
 		connection = oracledb.connect (
-			user="ODTSSCAN",
+			user=odts_username,
 			#password is hard coded but should move to a network location and called from here.
-			password="akUD,38%49]bnkDU",
-			dsn="epndev.slac.stanford.edu/EPNQA")
+			password=odts_password,
+			dsn=odts_dsn)
 
 		if connection.is_healthy():
 				from pandas import DataFrame

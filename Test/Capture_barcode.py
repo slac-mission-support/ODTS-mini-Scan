@@ -28,7 +28,7 @@ config.read('config.ini')
 global new_return_date
 new_return_date = datetime.datetime.now()
 sleep_interval = config.get('General','sleep_time')
-reader_number = config.get('General','host_name')
+reader_number = config.get('General','hostname')
 
 def read_barcode_one_time():
 
