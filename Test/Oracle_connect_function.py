@@ -2,17 +2,15 @@ import oracledb
 import LCD_messages
 import class_rgb
 import I2C_LCD_driver
-import configparser
+from configparser import ConfigParser, ExtendedInterpolation
 
-config = configparser.ConfigParser()
-config.read('config.ini')
-
-
+config = ConfigParser()
 
 mymessage = LCD_messages.messages()
 sleep_interval = 2
 mylcd = I2C_LCD_driver.lcd()
 myled = class_rgb.LED()
+config = ConfigParser(interpolation=None)
 
 class Oracle_return_dosimeter:
 	
@@ -23,6 +21,7 @@ class Oracle_return_dosimeter:
 		mymessage.message1()
 		
 	def execute_return(dosi_number, host_name):
+		config.read('config.ini')
 		odts_username = config.get('Database','odts_username')
 		odts_password = config.get('Database','odts_password')
 		odts_dsn = config.get('Database','odts_dsn')
