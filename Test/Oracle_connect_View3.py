@@ -4,8 +4,11 @@ import LCD_messages
 from time import sleep
 # import class_rgb
 # import I2C_LCD_driver
-config = configparser.ConfigParser()
-config.read('config.ini')
+from configparser import ConfigParser, ExtendedInterpolation
+
+config = ConfigParser()
+#config = configparser.ConfigParser()
+#config.read('config.ini')
 
 #This is 4.2.1 in the specification
 #Returns details for a dosimeter regardless of whether it was returned or not
@@ -14,6 +17,7 @@ pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 1000)
 
+config = ConfigParser(interpolation=None)
 
 class return_ODTS_view3:
 	
@@ -24,10 +28,10 @@ class return_ODTS_view3:
 		mymessage.message1()
 		
 	def return_info_view3(self, dosimeter_id):
-		
-		odts_username = config.get('Database','odts_username')
-		odts_password = config.get('Database','odts_password')
-		odts_dsn = config.get('Database','odts_dsn')
+		config.read('config.ini')
+		odts_username = config.get('Database','ODTS_username')
+		odts_password = config.get('Database','ODTS_password')
+		odts_dsn = config.get('Database','ODTS_dsn')
 		connection = oracledb.connect (
 			user=odts_username,
 			#password is hard coded but should move to a network location and called from here.

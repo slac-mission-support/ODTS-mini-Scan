@@ -9,7 +9,7 @@ class network_ping:
 
 	def check_ping():
 			config.read('config.ini')
-			odts_dsn = config.get('Database','odts_dsn')
+			odts_dsn = config.get('Database','odts_server')
 			hostname = odts_dsn
 			response = os.system("ping -c 1 " + hostname)
 			

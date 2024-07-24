@@ -38,6 +38,7 @@ class sqlite_export:
         df = df.drop(columns=['DATETIME'])
         #df = df.sort_values('DATE')
         #df.style.set_table_styles()
-        #print(df)
+        print(df)
         return(df)
 
+sqlite_export.exported_data()

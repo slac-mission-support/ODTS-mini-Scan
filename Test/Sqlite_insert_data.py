@@ -12,6 +12,7 @@ class sqlite:
         
         def update_sqlite(host, type, person_ID, dosi_ID, name, datetime):
             try:
+                config = configparser.ConfigParser()
                 config.read('config.ini')
                 local_db_name = config.get('Database','local_db_name')
                 sqliteConnection = sqlite3.connect(local_db_name)

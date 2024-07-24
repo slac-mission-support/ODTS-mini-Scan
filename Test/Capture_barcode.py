@@ -27,7 +27,7 @@ config = configparser.ConfigParser()
 config.read('config.ini')
 global new_return_date
 new_return_date = datetime.datetime.now()
-sleep_interval = config.get('General','sleep_time')
+sleep_interval = float(config.get('General','sleep_time'))
 reader_number = config.get('General','hostname')
 
 def read_barcode_one_time():
@@ -63,7 +63,10 @@ def return_user():
 	return_date = str(user[1])
 	global slac_id
 	slac_id = user[2]
-	config.append('General','slac_ID',slac_id)
+
+	config.set('General','slac_ID',str(slac_id))
+	with open('config.ini', 'w') as f:
+		config.write(f)
 
 	global person_name
 	person_name = user[0]
