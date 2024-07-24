@@ -11,6 +11,7 @@ from email.mime.application import MIMEApplication
 import Sqlite_export_to_csv as exp
 import os
 import configparser
+import Oracle_dataframe as dataframe
 
 #dataframe_table = Sqlite_export_to_csv.fetch
 config = configparser.ConfigParser()
@@ -19,10 +20,15 @@ local_path = config.get('Database','local_repo_path')
 sender_email = config.get('General','sender_email')
 os.chdir(local_path)
 data = exp.sqlite_export
+data_unreturned = dataframe.return_dataframe_view1
 
 df = data.exported_data()
 df_html = df.to_html(index=False, col_space='150px', justify='center', bold_rows=True, border=1)
 dfPart = MIMEText(df_html, 'html')
+
+df2 = data_unreturned.return_dataframe()
+df2_html = df2.to_html(index=False, col_space='150px', justify='center', bold_rows=True, border=1)
+dfPart2 = MIMEText(df2_html, 'html')
 
 Last_Name = "Ford"
 First_Name = "Ryan"
@@ -94,6 +100,7 @@ body_part2 = MIMEText(body2)
 message.attach(body_part0)
 message.attach(body_part)
 message.attach(dfPart)
+message.attach(dfPart2)
 message.attach(body_part2)
 
 # section 1 to attach file

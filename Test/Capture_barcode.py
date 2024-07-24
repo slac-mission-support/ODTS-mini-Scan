@@ -63,6 +63,8 @@ def return_user():
 	return_date = str(user[1])
 	global slac_id
 	slac_id = user[2]
+	config.append('General','slac_ID',slac_id)
+
 	global person_name
 	person_name = user[0]
 	if str(user) == 'None':
