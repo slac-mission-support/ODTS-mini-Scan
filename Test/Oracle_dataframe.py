@@ -16,9 +16,9 @@ class return_dataframe_view1:
 	
 	def return_dataframe(self, person_id):
 		config.read('config.ini')
-		odts_username = config.get('Database','odts_username')
-		odts_password = config.get('Database','odts_password')
-		odts_dsn = config.get('Database','odts_dsn')
+		odts_username = config.get('Database','ODTS_username')
+		odts_password = config.get('Database','ODTS_password')
+		odts_dsn = config.get('Database','ODTS_dsn')
 		connection = oracledb.connect (
 			user=odts_username,
 			#password is hard coded but should move to a network location and called from here.
@@ -34,9 +34,9 @@ class return_dataframe_view1:
 				query = cursor.execute("select * from DOSE_TEST.DOSIMETER_unreturned_VW where person_id =" + str(person_id))
 				df = DataFrame(query)
 				df.columns = ['Dosi#', 'Quarter', 'SLAC ID', 'Name', 'email', 'Sup SLAC ID', 'Sup Name', 'Sup email', 'return date']
-				print(df)
-				print()
-				print()
+				#print(df)
+				#print()
+				#print()
 				return(df)
 		else:
 			print("Unusable Connection.  Please check the database and network settings.")

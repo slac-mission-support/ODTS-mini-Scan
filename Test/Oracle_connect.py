@@ -30,9 +30,9 @@ class return_ODTS_view1:
 			
 	def return_info(self, person_id):
 		
-		odts_username = config.get('Database','odts_username')
-		odts_password = config.get('Database','odts_password')
-		odts_dsn = config.get('Database','odts_dsn')
+		odts_username = config.get('Database','ODTS_username')
+		odts_password = config.get('Database','ODTS_password')
+		odts_dsn = config.get('Database','ODTS_dsn')
 		connection = oracledb.connect (
 			user=odts_username,
 			#password is hard coded but should move to a network location and called from here.

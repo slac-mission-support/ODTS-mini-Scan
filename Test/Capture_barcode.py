@@ -57,17 +57,17 @@ def read_barcode():
 
 
 def return_user():
+	#[0] = full name
+	#[1] = return date
+	#[2] = slac ID
+	#[3] = email
+	#[4] = supervisor email
 	barcode = read_barcode()
 	user = mydata3.return_info_view3(barcode)
 	global return_date
 	return_date = str(user[1])
 	global slac_id
 	slac_id = user[2]
-
-	config.set('General','slac_ID',str(slac_id))
-	with open('config.ini', 'w') as f:
-		config.write(f)
-
 	global person_name
 	person_name = user[0]
 	if str(user) == 'None':
@@ -78,6 +78,19 @@ def return_user():
 		lastname = user[0].split(",")[0]
 		mymessage.message6a(firstname, lastname)
 	sleep(sleep_interval)
+	global email_address
+	email_address = user[3]
+	global sup_email
+	sup_email = user[4]
+	#populate the ini file so it's available for the email class
+	config.set('General','slac_ID',str(slac_id))
+	config.set('General','return_date', str(return_date))
+	config.set('General','last_name',str(lastname)
+	config.set('General','first_name',str(firstname)
+	config.set('General','email', str(email_address))
+	config.set('General','sup_email', str(sup_email))
+	with open('config.ini', 'w') as f:
+		config.write(f)
 
 def return_dosimeter():
 	function_result = myfunction.execute_return(str(captured_barcode), reader_number)

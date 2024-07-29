@@ -63,7 +63,12 @@ class return_ODTS_view3:
 					if numrows == '0':
 						return("None")
 					else: 
-						return(row[3], str(row[8])[0:10], row[2])
+						return(row[3], str(row[8])[0:10], row[2], row[4], row[7])
+						#[0] = full name
+						#[1] = return date
+						#[2] = slac ID
+						#[3] = email
+						#[4] = supervisor email
 		else:
 			print("Unusable Connection.  Please check the database and network settings.")
 			# mymessage.message8()

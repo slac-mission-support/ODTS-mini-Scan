@@ -20,13 +20,13 @@ local_path = config.get('Database','local_repo_path')
 sender_email = config.get('General','sender_email')
 os.chdir(local_path)
 data = exp.sqlite_export
-data_unreturned = dataframe.return_dataframe_view1
+data_unreturned = dataframe.return_dataframe_view1()
 
 df = data.exported_data()
 df_html = df.to_html(index=False, col_space='150px', justify='center', bold_rows=True, border=1)
 dfPart = MIMEText(df_html, 'html')
 
-df2 = data_unreturned.return_dataframe()
+df2 = data_unreturned.return_dataframe(400777)
 df2_html = df2.to_html(index=False, col_space='150px', justify='center', bold_rows=True, border=1)
 dfPart2 = MIMEText(df2_html, 'html')
 
@@ -73,7 +73,7 @@ body = email_header_2
 body2 = email_footer
 #sender_email = sender_email #will be esh-drep
 sender_email = smtp_username
-recipient_email = "three25seventy@gmail.com"
+recipient_email = "ryanford@slac.stanford.edu"
 path_to_file = 'ryan1.txt'
 
 # MIMEMultipart() creates a container for an email message that can hold
@@ -103,6 +103,17 @@ message.attach(dfPart)
 message.attach(dfPart2)
 message.attach(body_part2)
 
+print(sender_email) 
+print('\n')
+print(recipient_email)
+print('\n')
+print(body_part0)
+print(body_part)
+print(body_part2)
+print(df2)
+print(smtp_host)
+print(smtp_port)
+
 # section 1 to attach file
 with open(path_to_file,'rb') as file:
     # Attach the file with filename to the email
@@ -110,6 +121,18 @@ with open(path_to_file,'rb') as file:
 
 # secction 2 for sending email
 
-with smtplib.SMTP_SSL(smtp_host, smtp_port) as server:
-   server.login(smtp_username, smtp_password)
-   server.sendmail(sender_email, recipient_email, message.as_string())
+#with smtplib.SMTP_SSL(smtp_host, smtp_port) as server:
+   #server.login(smtp_username, smtp_password)
+#   server.sendmail(sender_email, recipient_email, message.as_string())
+
+try:
+        
+        with smtplib.SMTP(smtp_host, smtp_port, timeout = 5) as server:
+           #server.login(smtp_username, smtp_password)
+           
+           server.sendmail(sender_email, recipient_email, message.as_string())
+           server.quit()
+
+except Exception as e:
+        print(e)
+        print(type(e))
