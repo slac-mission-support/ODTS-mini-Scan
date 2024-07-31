@@ -8,34 +8,47 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 # MIMEApplication attaching application-specific data (like CSV files) to email messages.
 from email.mime.application import MIMEApplication
-import Sqlite_export_to_csv as exp
 import os
 import configparser
 import Oracle_dataframe as dataframe
+import pandas as pd
 
-#dataframe_table = Sqlite_export_to_csv.fetch
 config = configparser.ConfigParser()
 config.read('config.ini')
 local_path = config.get('Database','local_repo_path')
 sender_email = config.get('General','sender_email')
 os.chdir(local_path)
-data = exp.sqlite_export
 data_unreturned = dataframe.return_dataframe_view1()
 
-df = data.exported_data()
-df_html = df.to_html(index=False, col_space='150px', justify='center', bold_rows=True, border=1)
-dfPart = MIMEText(df_html, 'html')
-
 df2 = data_unreturned.return_dataframe(400777)
+df2_string = df2.to_string(index=False)
+#print(df2_string)
+df2.style.hide(axis='index')
 df2_html = df2.to_html(index=False, col_space='150px', justify='center', bold_rows=True, border=1)
 dfPart2 = MIMEText(df2_html, 'html')
 
-Last_Name = "Ford"
-First_Name = "Ryan"
-Dosi_Number = "123456J"
-Return_Date = '7-10-24'
-emp_email = 'email1'
-sup_email = 'email2'
+
+#['Dosi#', 'Quarter', 'SLAC ID', 'Name', 'email', 'Sup SLAC ID', 'Sup Name', 'Sup email', 'return date']
+Full_Name = df2.get('Name')
+Full_Name_Styled = Full_Name.to_string(index=False)
+print("Full Name: " + Full_Name_Styled)
+First_Name = 'Ryan'
+First_Name = Full_Name_Styled.split(", ")[1]
+print("First Name: " + First_Name)
+Last_Name = Full_Name_Styled.split(",")[0]
+print("Last Name: " + Last_Name)
+Dosi_Number = df2.get('Dosi#')
+Dosi_Number_Styled = Dosi_Number.to_string(index=False)
+print("Dosi Number: " + Dosi_Number_Styled)
+Return_Date = df2.get('return date')
+Return_Date_Styled = Return_Date.to_string(index=False)
+print("Return Date: " + Return_Date_Styled)
+emp_email = df2.get('email')
+emp_email_styled = emp_email.to_string(index=False)
+print("Email: " + emp_email_styled)
+sup_email = df2.get('Sup email')
+sup_email_styled = sup_email.to_string(index=False)
+print('Sup Email: ' + sup_email_styled)
 def_email = sender_email
 
 #email address selection
@@ -50,12 +63,12 @@ def_email = sender_email
 #       recipient email == emp_email
 #       return("emp_email")
 
-email_header_0 = ("This email was sent to a supervisor because the employee does not have an email on file.\n\n")
-email_header_1 = ("This email was sent to RP because there are no email addresses on file for this individual.\n\n")
+email_header_0 = ("This email was sent to a supervisor because the employee does not have an email on file.\n")
+email_header_1 = ("This email was sent to RP because there are no email addresses on file for this individual.\n")
 
 email_header_2 = ("Dear " + First_Name + ",\n\n"
-                "Thank you for returning your dosimeter #" + Dosi_Number + ".  "
-                "We scanned it into our system on " + Return_Date + ".  "
+                "Thank you for returning your dosimeter #" + Dosi_Number_Styled + ".  "
+                "We scanned it into our system on " + Return_Date_Styled + ".  "
                 "If you are on a quarterly exchange, please remember to return "
                 "your next dosimeter within 2 weeks of the due date. \n\n\n")
 
@@ -68,10 +81,6 @@ smtp_host = config.get('General','smtp_host')
 smtp_port = int(config.get('General','smtp_port'))
 
 subject = "Email Subject"
-body0 = email_header_0
-body = email_header_2
-body2 = email_footer
-#sender_email = sender_email #will be esh-drep
 sender_email = smtp_username
 recipient_email = "ryanford@slac.stanford.edu"
 path_to_file = 'ryan1.txt'
@@ -94,25 +103,24 @@ message = MIMEMultipart()
 message['Subject'] = subject
 message['From'] = sender_email
 message['To'] = recipient_email
-body_part0 = MIMEText(body0)
-body_part = MIMEText(body)
-body_part2 = MIMEText(body2)
-message.attach(body_part0)
-message.attach(body_part)
-message.attach(dfPart)
+message.attach(MIMEText(email_header_0))
+message.attach(MIMEText(email_header_2))
 message.attach(dfPart2)
-message.attach(body_part2)
+message.attach(MIMEText(email_footer))
 
-print(sender_email) 
+print("Sender Email: " + sender_email) 
 print('\n')
-print(recipient_email)
+print('Recipient Email: ' + recipient_email)
 print('\n')
-print(body_part0)
-print(body_part)
-print(body_part2)
+print(email_header_0)
+print(email_header_1)
+print(email_header_2)
 print(df2)
-print(smtp_host)
-print(smtp_port)
+print(email_footer)
+
+
+#print(smtp_host)
+#print(smtp_port)
 
 # section 1 to attach file
 with open(path_to_file,'rb') as file:
@@ -121,18 +129,27 @@ with open(path_to_file,'rb') as file:
 
 # secction 2 for sending email
 
-#with smtplib.SMTP_SSL(smtp_host, smtp_port) as server:
-   #server.login(smtp_username, smtp_password)
-#   server.sendmail(sender_email, recipient_email, message.as_string())
+#print(message.as_string())
 
-try:
+# try:
         
-        with smtplib.SMTP(smtp_host, smtp_port, timeout = 5) as server:
-           #server.login(smtp_username, smtp_password)
-           
-           server.sendmail(sender_email, recipient_email, message.as_string())
-           server.quit()
+        # with smtplib.SMTP_SSL(smtp_host, smtp_port) as server:
+           # server.login(smtp_username, smtp_password)
+           # server.sendmail(sender_email, recipient_email, message.as_string())
 
-except Exception as e:
-        print(e)
-        print(type(e))
+# except Exception as e:
+        # print(e)
+        # print(type(e))
+
+
+# try:
+        
+        # with smtplib.SMTP(smtp_host, smtp_port, timeout = 5) as server:
+           # #server.login(smtp_username, smtp_password)
+           
+           # server.sendmail(sender_email, recipient_email, message.as_string())
+           # server.quit()
+
+# except Exception as e:
+        # print(e)
+        # print(type(e))

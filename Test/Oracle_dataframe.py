@@ -29,11 +29,13 @@ class return_dataframe_view1:
 
 		if connection.is_healthy():
 				from pandas import DataFrame
-				print("Connection is Healthy on View 1 (Unreturned Person ID)")
+				#print("Connection is Healthy on View 1 (Unreturned Person ID)")
 				cursor = connection.cursor()
 				query = cursor.execute("select * from DOSE_TEST.DOSIMETER_unreturned_VW where person_id =" + str(person_id))
 				df = DataFrame(query)
 				df.columns = ['Dosi#', 'Quarter', 'SLAC ID', 'Name', 'email', 'Sup SLAC ID', 'Sup Name', 'Sup email', 'return date']
+				#df.style.hide(axis='index')
+				#df.hide_index()
 				#print(df)
 				#print()
 				#print()

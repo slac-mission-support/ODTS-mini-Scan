@@ -43,7 +43,7 @@ class return_ODTS_view1:
 
 		if connection.is_healthy():
 				from pandas import DataFrame
-				print("Connection is Healthy on View 1 (Unreturned Person ID)")
+				#print("Connection is Healthy on View 1 (Unreturned Person ID)")
 				cursor = connection.cursor()
 				query = cursor.execute("select * from DOSE_TEST.DOSIMETER_unreturned_VW where person_id =" + person_id)
 				for row in query:

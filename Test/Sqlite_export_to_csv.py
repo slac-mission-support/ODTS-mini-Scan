@@ -25,7 +25,7 @@ class sqlite_export:
                             detect_types=sqlite3.PARSE_COLNAMES)
         today = date.today()
         yesterday = today - timedelta(days = 1)
-        print(yesterday)
+        #print(yesterday)
         db_df = pd.read_sql_query("SELECT HOST, TYPE, PERSON_ID, DOSI_ID, NAME, DATETIME FROM TRANSX", conn)
         #db_df.to_excel('database.xlsx', index=False)
 
@@ -38,7 +38,7 @@ class sqlite_export:
         df = df.drop(columns=['DATETIME'])
         #df = df.sort_values('DATE')
         #df.style.set_table_styles()
-        print(df)
+        #print(df)
         return(df)
 
 sqlite_export.exported_data()
