@@ -63,7 +63,7 @@ class return_ODTS_view3:
 					if numrows == '0':
 						return("None")
 					else: 
-						return(row[3], str(row[8])[0:10], row[2], row[4], row[7])
+						return(row[3], str(row[8])[0:10], row[2], row[4], row[7], row[0])
 						#[0] = full name
 						#[1] = return date
 						#[2] = slac ID

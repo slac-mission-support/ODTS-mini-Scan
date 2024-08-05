@@ -13,8 +13,10 @@ import datetime
 import Sqlite_insert_data
 import ping
 import configparser
+import gmail_email as gmail
 
 
+mygmail = gmail.send_email
 mylcd = I2C_LCD_driver.lcd()
 myled = class_rgb.LED()
 mymessage = LCD_messages.messages()
@@ -62,6 +64,7 @@ def return_user():
 	#[2] = slac ID
 	#[3] = email
 	#[4] = supervisor email
+	#[5] = dosimeter number
 	barcode = read_barcode()
 	user = mydata3.return_info_view3(barcode)
 	global return_date
@@ -82,13 +85,17 @@ def return_user():
 	email_address = user[3]
 	global sup_email
 	sup_email = user[4]
+	global dosi_number
+	dosi_number = user[5]
 	#populate the ini file so it's available for the email class
 	config.set('General','slac_ID',str(slac_id))
 	config.set('General','return_date', str(return_date))
-	config.set('General','last_name',str(lastname)
-	config.set('General','first_name',str(firstname)
+	config.set('General','last_name',str(lastname))
+	config.set('General','first_name',str(firstname))
 	config.set('General','email', str(email_address))
 	config.set('General','sup_email', str(sup_email))
+	config.set('General','dosi_number', str(dosi_number))
+	config.set('General','todays_date', str(new_return_date)[0:10])
 	with open('config.ini', 'w') as f:
 		config.write(f)
 
@@ -119,6 +126,8 @@ while program_status:
 		return_user()
 		return_dosimeter()
 		write_to_sqlite()
+		#sleep(10)
+		mygmail()
 		shutdown()
 	else:
 		myled.red(2)

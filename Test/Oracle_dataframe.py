@@ -33,13 +33,18 @@ class return_dataframe_view1:
 				cursor = connection.cursor()
 				query = cursor.execute("select * from DOSE_TEST.DOSIMETER_unreturned_VW where person_id =" + str(person_id))
 				df = DataFrame(query)
-				df.columns = ['Dosi#', 'Quarter', 'SLAC ID', 'Name', 'email', 'Sup SLAC ID', 'Sup Name', 'Sup email', 'return date']
+				if df.empty is True:
+					d = {'col1':[1,2], 'col2':[3,4]}
+					df = pd.DataFrame(data=d)
+					return(df)
 				#df.style.hide(axis='index')
 				#df.hide_index()
 				#print(df)
 				#print()
 				#print()
-				return(df)
+				else:
+					df.columns = ['Dosi#', 'Quarter', 'SLAC ID', 'Name', 'email', 'Sup SLAC ID', 'Sup Name', 'Sup email', 'return date']
+					return(df)
 		else:
 			print("Unusable Connection.  Please check the database and network settings.")
 				
