@@ -8,17 +8,11 @@ import configparser
 
 config = configparser.ConfigParser()
 config.read('config.ini')
-# import class_rgb
-# import I2C_LCD_driver
 
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 1000)
-# mymessage = LCD_messages.messages()
-# sleep_interval = 2
-# mylcd = I2C_LCD_driver.lcd()
-# myled = class_rgb.LED()
 
 class return_ODTS_view1:
 
@@ -35,11 +29,8 @@ class return_ODTS_view1:
 		odts_dsn = config.get('Database','ODTS_dsn')
 		connection = oracledb.connect (
 			user=odts_username,
-			#password is hard coded but should move to a network location and called from here.
 			password=odts_password,
 			dsn=odts_dsn)
-
-		#person_id = '400777'
 
 		if connection.is_healthy():
 				from pandas import DataFrame
@@ -57,17 +48,12 @@ class return_ODTS_view1:
 					print("Supervisor email: ", row[7])
 					if row[8] is None:
 						print("Dosimeter is Unreturned")
-						#return("Unreturned")
 					else:
 						print("Return Date: ", str(row[8])[0:10])
 					print("xxxxxxxxxxxxxxxxxxxxxxxx")
 				
-				#print("View 1 Row Count: " + str(cursor.rowcount))
 		else:
 			print("Unusable Connection.  Please check the database and network settings.")
-			# mymessage.message8()
-			# sleep(sleep_interval)
-			# setup()
 			
 		cursor.close()
 		connection.close()

@@ -126,7 +126,6 @@ while program_status:
 		return_user()
 		return_dosimeter()
 		write_to_sqlite()
-		#sleep(10)
 		mygmail()
 		shutdown()
 	else:

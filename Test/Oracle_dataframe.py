@@ -21,36 +21,29 @@ class return_dataframe_view1:
 		odts_dsn = config.get('Database','ODTS_dsn')
 		connection = oracledb.connect (
 			user=odts_username,
-			#password is hard coded but should move to a network location and called from here.
 			password=odts_password,
 			dsn=odts_dsn)
-
-		#person_id = '400777'
 
 		if connection.is_healthy():
 				from pandas import DataFrame
 				#print("Connection is Healthy on View 1 (Unreturned Person ID)")
 				cursor = connection.cursor()
 				query = cursor.execute("select * from DOSE_TEST.DOSIMETER_unreturned_VW where person_id =" + str(person_id))
-				df = DataFrame(query)
-				if df.empty is True:
-					d = {'col1':[1,2], 'col2':[3,4]}
-					df = pd.DataFrame(data=d)
-					return(df)
-				#df.style.hide(axis='index')
-				#df.hide_index()
-				#print(df)
-				#print()
-				#print()
+				row = cursor.fetchone()
+				if row is None:
+					return(row)
 				else:
-					df.columns = ['Dosi#', 'Quarter', 'SLAC ID', 'Name', 'email', 'Sup SLAC ID', 'Sup Name', 'Sup email', 'return date']
+					query = cursor.execute("select * from DOSE_TEST.DOSIMETER_unreturned_VW where person_id =" + str(person_id))
+					df = DataFrame(query)
+					df.columns = ['Dosi#', 'Quarter', 'SLAC ID', 'Name', 'Email', 'Sup SLAC ID', 'Sup Name', 'Sup Email', 'Return Date']
+					df = df.drop(['Sup Name', 'Sup Email', 'Sup SLAC ID'], axis=1)
+					df['Dosi#'] = df['Dosi#'].apply(lambda x: '***' + x[4:])		#obscure the first 4 characters of dosi# with asterix						
 					return(df)
+
 		else:
 			print("Unusable Connection.  Please check the database and network settings.")
 				
 		cursor.close()
 		connection.close()
 
-#r = return_dataframe_view1()
-#r.return_dataframe(400777)
 

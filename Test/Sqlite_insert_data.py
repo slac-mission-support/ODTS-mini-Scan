@@ -37,5 +37,3 @@ class sqlite:
                     sqliteConnection.close()
                     print("The SQLite connection is closed")
 
-#insertVaribleIntoTable('ODTSSCAN01', 'RETURN', 989898, '123456J', 'Frosio, Thomas', datetime.datetime.now() )
-#insertVaribleIntoTable('ODTSSCAN01', 'RETURN', 878787, '123345J', 'Ding, Qi', datetime.datetime.now() )

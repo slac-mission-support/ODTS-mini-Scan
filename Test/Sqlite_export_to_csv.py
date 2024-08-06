@@ -25,20 +25,15 @@ class sqlite_export:
                             detect_types=sqlite3.PARSE_COLNAMES)
         today = date.today()
         yesterday = today - timedelta(days = 1)
-        #print(yesterday)
         db_df = pd.read_sql_query("SELECT HOST, TYPE, PERSON_ID, DOSI_ID, NAME, DATETIME FROM TRANSX", conn)
-        #db_df.to_excel('database.xlsx', index=False)
 
         from pandas import DataFrame
 
         df = DataFrame(db_df)
         df['DATE'] = df['DATETIME'].str[:10]
         df['TIME'] = df['DATETIME'].str[11:19]
-        #df.sort_values(['DATE', 'TIME'], ascending=[True, True], inplace=True)
         df = df.drop(columns=['DATETIME'])
-        #df = df.sort_values('DATE')
-        #df.style.set_table_styles()
-        #print(df)
         return(df)
 
-sqlite_export.exported_data()
+p = sqlite_export.exported_data()
+print(p)
