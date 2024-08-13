@@ -1,1 +1,28 @@
+The scanner box uses a USB camera to read the barcode, then makes a data request from a VIEW in the ODTS database.
+The data returned includes user information.  This data is displayed sequentially on the scanner box' LCD display.
 
+The box then calls an ODTS stored procedure to update the return date for that dosimeter with the current date.
+
+Details related to the transaction are stored locally on the box in an SQL Lite database file.
+
+Finally, the box composes an email and sends it to the user or their supervisor providing a receipt of the return.
+The email will also show additional unreturned dosimeters, if any.  These are queried using the PERSON ID against a second VIEW.
+
+The IDE for the application is the GEANY editor on the raspberry pi.  Open the lid and connect a monitor to the Raspberry PI board,
+then navigate to the cloned repository in the home subfolder "ODTS-mini-Scan" using the Pi OS file explorer.
+
+Requirements for the function of the source code are provided in the "Specification for mini-Scan.docx" in this repository
+
+When the Pi boots, it starts by loading the programs listed in the rc.local file.  To edit the file, type sudo nano /etc/rc.local
+from a command prompt on the Pi.  This file must be revised when changing from TEST to PROD, which are subfolders within this repository.
+
+The first file the Pi loads is for the reset button.  The reset button must be held for 6 seconds then the Pi will reboot safely.
+
+The next file is the Capture_barcode.py file.  This file contains a series of methods followed by a while loop (which calls those methods) 
+and runs continuously so that barcodes can be scanned sequentially and returned into the ODTS system.
+
+The Capture_barcode.py file references a set of 10 - 15 other class libraries which drive the LCD, pings the network, queries ODTS, 
+composes the email, etc.
+
+The final file in the rc.local file is the one which runs a scheduled program that sends the Dosimetry Group a daily email with
+the data related to the returns on the box.
