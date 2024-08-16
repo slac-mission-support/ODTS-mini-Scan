@@ -15,7 +15,8 @@ class sqlite_export:
 
     def exported_data():
         config = configparser.ConfigParser()
-        config.read('config.ini')
+        file_name = os.path.dirname(__file__) + '/config.ini'
+        config.read(file_name)
         local_repo_path = config.get('Database','local_repo_path')        #raspberry pi path
         os.chdir(local_repo_path)
         #windows path
@@ -23,17 +24,23 @@ class sqlite_export:
         local_db_name = config.get('Database', 'local_db_name')
         conn = sqlite3.connect(local_db_name, isolation_level=None,
                             detect_types=sqlite3.PARSE_COLNAMES)
-        today = date.today()
-        yesterday = today - timedelta(days = 1)
-        db_df = pd.read_sql_query("SELECT HOST, TYPE, PERSON_ID, DOSI_ID, NAME, DATETIME FROM TRANSX", conn)
+        today = date.today() + timedelta(days = 1)
+        #print(today)
+        start = today - timedelta(days = 10)
+        #print(start)
+        query = ("SELECT HOST, TYPE, PERSON_ID, DOSI_ID, NAME, DATETIME FROM TRANSX WHERE DATETIME BETWEEN '" 
+                + str(start) + "' AND '" + str(today) + "'")
+        db_df = pd.read_sql_query(query, conn)
 
         from pandas import DataFrame
 
         df = DataFrame(db_df)
-        df['DATE'] = df['DATETIME'].str[:10]
-        df['TIME'] = df['DATETIME'].str[11:19]
-        df = df.drop(columns=['DATETIME'])
-        return(df)
+        sorted_df = df.sort_values(by=['DATETIME'], ascending = False)
+        sorted_df['DATE'] = sorted_df['DATETIME'].str[:10]
+        sorted_df['TIME'] = sorted_df['DATETIME'].str[11:19]
 
-p = sqlite_export.exported_data()
-print(p)
+        sorted_df = sorted_df.drop(columns=['DATETIME'])
+        return(sorted_df)
+
+#p = sqlite_export.exported_data()
+#print(p)

@@ -31,6 +31,7 @@ global new_return_date
 new_return_date = datetime.datetime.now()
 sleep_interval = float(config.get('General','sleep_time'))
 reader_number = config.get('General','hostname')
+slac_id = config.get('General','slac_ID')
 
 def read_barcode_one_time():
 
@@ -122,12 +123,14 @@ def write_to_sqlite():
 while program_status:
 	network = myping.check_ping()
 	if network =='Network Active':
-		setup()
-		return_user()
-		return_dosimeter()
-		write_to_sqlite()
-		mygmail()
-		shutdown()
+			setup()
+			return_user()
+			return_dosimeter()
+			write_to_sqlite()
+			mygmail()
+			shutdown()
+		
+		
 	else:
 		myled.red(2)
 		mymessage.message8()

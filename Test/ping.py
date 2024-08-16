@@ -20,7 +20,7 @@ class network_ping:
 				
 			return pingstatus
 			
-			
-	#ping_status = check_ping()
-	#print(ping_status)
+#a = network_ping
+#ping_status = a.check_ping()
+#print(ping_status)
 
