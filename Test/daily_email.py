@@ -38,8 +38,9 @@ def send_email():
         else:
                 text = ('The following table shows a history of the past 5 days on the Subject scanner:\n')
                 df_html = df.to_html(index=False, col_space='150px', justify='center', bold_rows=True, border=1)
-                #dfPart2 = MIMEText(df_html, 'html')
-  
+                
+                
+                
         email_header_0 = ("Please treat this data as PII and do not forward.\n")
 
         email_footer = ("\nIf you have any questions regarding the dosimetery service, "
@@ -60,30 +61,11 @@ def send_email():
         message['Subject'] = subject
         message['From'] = sender_email
         message['To'] = 'ryanford@slac.stanford.edu'
-        
         message.attach(MIMEText(email_header_0 + line_break + df_html + line_break + email_footer, 'html'))
-        #message.attach(MIMEText(email_header_0))
-        #message.attach(dfPart2)
-        #message.attach(MIMEText(email_footer))
-
-        # print(subject)
-        # print("Sender Email: " + sender_email) 
-        # print('Recipient Email: ' + return_to_email)
-        # print('\n')
-        # print(email_header_0)
-
-        # if df is not None:
-                # print(df.to_string(index=False))
-
-        # print(email_footer)
-
-        # section 1 to attach file
+        
         with open(path_to_file,'rb') as file:
-            # Attach the file with filename to the email
                 message.attach(MIMEApplication(file.read(), Name="history.xlsx"))
-
         try:
-                
                 with smtplib.SMTP(smtp_host, smtp_port, timeout = 5) as server:
                    server.sendmail(sender_email, 'ryanford@slac.stanford.edu', message.as_string())
                    server.quit()

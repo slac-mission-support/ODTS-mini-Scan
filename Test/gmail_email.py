@@ -13,6 +13,32 @@ import configparser
 import Oracle_dataframe as dataframe
 import pandas as pd
 
+def evaluate_email():
+        config = configparser.ConfigParser()
+        config.read('config.ini')
+        email_address = config.get('General','email')
+        if not email_address or email_address == 'None':
+                return("None", "None")
+        else:
+                domain = email_address.split('@')[1]
+                email = email_address
+                return(email_address.lower(), domain.lower())
+ 
+evaluate_email()
+
+def evaluate_sup_email():
+        config = configparser.ConfigParser()
+        config.read('config.ini')
+        email_address = config.get('General','sup_email')
+        if not email_address or email_address == 'None':
+                return("None", "None")
+        else:
+                domain = email_address.split('@')[1]
+                email = email_address
+                return(email_address.lower(), domain.lower())
+
+evaluate_sup_email()
+
 
 def send_email():
         
@@ -28,13 +54,16 @@ def send_email():
         Dosi_Number = '***' + config.get('General', 'dosi_number')[-4:]
         todays_date = config.get('General','todays_date')
         Return_Date = config.get('General', 'return_date')
-        email = config.get('General','email')
-        sup_email = config.get('General','sup_email')
+        
+        email = evaluate_email()[0]
+        email_domain = evaluate_email()[1]
+        print(email)
+        print(email_domain)
+        sup_email = evaluate_sup_email()[0]
+        sup_email_domain = evaluate_sup_email()[1]
+        print(sup_email)
+        
         reply_email = config.get('General','return_to_email')
-        if not email:   
-                email_origin = 'slac.stanford.edu' #email.split('@')[1]
-        else:
-                email_origin = ''
         Return_Date_Year = todays_date[0:4]
         Return_Date_Month = todays_date[5:7]
         Return_Date_Day = todays_date[8:10]
@@ -43,31 +72,36 @@ def send_email():
         os.chdir(local_path)
         data_unreturned = dataframe.return_dataframe_view1()
         df2 = data_unreturned.return_dataframe(str(slac_id))
-
+        
         if df2 is None:
-                dfPart2 = None
+                print("A")
+                dfPart2 = ''
+                df2_html = ''
                 text = ''
         else:
+                print("B")
                 text = ('Our records indicate you have additional unreturned dosimeter(s).  '
                         'This could be from a prior quarter, or having replaced a dosimeter left at home. \n')
                 df2_html = df2.to_html(index=False, col_space='150px', justify='center', bold_rows=True, border=1)
                 dfPart2 = MIMEText(df2_html, 'html')
 
         #email address selection
-        if email is None or email_origin != 'slac.stanford.edu':
-                if sup_email is None:
+        if email == 'None' or email_domain != 'slac.stanford.edu':
+                if sup_email == 'None' or sup_email_domain != 'slac.stanford.edu':
+                        print("C")
                         recipient_email = sender_email
-                        email_header_0 = ("This email was sent to RP because there are no email addresses on file for this individual.\n")
+                        email_header_0 = ("This email was sent to RP because there are no email addresses on file for this individual "
+                        "or their supervisor.\n")
                 else:
+                        print("D")
                         recipient_email = sup_email
-                        email_header_0 = ("This email was sent to a supervisor because the employee does not have an email on file.\n")
+                        email_header_0 = ("This email was sent to a supervisor because the employee does not have an email on file,"
+                                        " or the email on file is not a SLAC email address.\n")
 
-        elif email_origin == 'slac.stanford.edu':
+        else: #normal condition, i.e., email_domain == 'slac.stanford.edu':
+                print("E")
                 recipient_email = email
                 email_header_0 = ''
-        else:
-                recipient_email = sender_email
-                email_header_0 = ("This email was sent to RP because there are no email addresses on file for this individual.\n")
 
         email_header_2 = ("Dear " + First_Name + ',' + line_break +
                         "Thank you for returning your dosimeter #" + Dosi_Number + ".  "
@@ -78,8 +112,9 @@ def send_email():
         email_header_3 = text
         
         email_footer = ("\nIf you have any questions regarding the dosimetery service, "
-                        "please contact ESH-DREP@SLAC.STANFORD.EDU." + line_break +
-                        "Sincerely," + line_break + "Radiation Protection Dosimetry Group" + line_break)
+                        "please contact ESH-DREP@SLAC.STANFORD.EDU. " + line_break +
+                        "Sincerely," + line_break + "Radiation Protection Dosimetry Group" + line_break +
+                        "//" + slac_id + "//")
 
         smtp_username = config.get('General','smtp_username')
         smtp_password = config.get('General','smtp_password')
@@ -121,4 +156,4 @@ def send_email():
                 print(e)
                 print(type(e))
 
-send_email()
+#send_email()

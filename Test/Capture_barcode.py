@@ -69,36 +69,55 @@ def return_user():
 	barcode = read_barcode()
 	user = mydata3.return_info_view3(barcode)
 	global return_date
-	return_date = str(user[1])
 	global slac_id
-	slac_id = user[2]
 	global person_name
-	person_name = user[0]
-	if str(user) == 'None':
-		mymessage.message7()
-		sleep(int(sleep_interval))
-	else:
-		firstname = user[0].split(", ")[1]
-		lastname = user[0].split(",")[0]
-		mymessage.message6a(firstname, lastname)
-	sleep(sleep_interval)
-	global email_address
-	email_address = user[3]
+	global email_address	
 	global sup_email
-	sup_email = user[4]
-	global dosi_number
-	dosi_number = user[5]
+	global dosi_number	
+	
+	if not user:
+		return_date = datetime.datetime.now()
+		slac_id = 'N/A'
+		person_name = 'N/A'
+		email_address = 'N/A'
+		sup_email = 'N/A'
+		dosi_number = barcode
+		mymessage.message10()
+		sleep(int(sleep_interval))
+		
+
+	else:
+
+		return_date = str(user[1])
+
+		slac_id = user[2]
+
+		person_name = user[0]
+		if str(user) == 'None':
+			mymessage.message7()
+			sleep(int(sleep_interval))
+		else:
+			firstname = user[0].split(", ")[1]
+			lastname = user[0].split(",")[0]
+			mymessage.message6a(firstname, lastname)
+		sleep(sleep_interval)
+
+		email_address = user[3]
+
+		sup_email = user[4]
+
+		dosi_number = user[5]
 	#populate the ini file so it's available for the email class
-	config.set('General','slac_ID',str(slac_id))
-	config.set('General','return_date', str(return_date))
-	config.set('General','last_name',str(lastname))
-	config.set('General','first_name',str(firstname))
-	config.set('General','email', str(email_address))
-	config.set('General','sup_email', str(sup_email))
-	config.set('General','dosi_number', str(dosi_number))
-	config.set('General','todays_date', str(new_return_date)[0:10])
-	with open('config.ini', 'w') as f:
-		config.write(f)
+		config.set('General','slac_ID',str(slac_id))
+		config.set('General','return_date', str(return_date))
+		config.set('General','last_name',str(lastname))
+		config.set('General','first_name',str(firstname))
+		config.set('General','email', str(email_address))
+		config.set('General','sup_email', str(sup_email))
+		config.set('General','dosi_number', str(dosi_number))
+		config.set('General','todays_date', str(new_return_date)[0:10])
+		with open('config.ini', 'w') as f:
+			config.write(f)
 
 def return_dosimeter():
 	function_result = myfunction.execute_return(str(captured_barcode), reader_number)
@@ -113,6 +132,10 @@ def write_to_sqlite():
 	if str(return_date) == 'None':
 		returndate = datetime.datetime.now() #new return date for today
 		return_type = 'RETURN'
+	elif slac_id == 'N/A':
+		returndate =datetime.datetime.now()
+		return_type = 'UNUSED'
+		
 	else:
 		returndate = return_date  #what was queried from above, which does not store time component of the transaction
 		print(return_date)
@@ -127,10 +150,10 @@ while program_status:
 			return_user()
 			return_dosimeter()
 			write_to_sqlite()
-			mygmail()
-			shutdown()
-		
-		
+			if not return_date or return_date == 'None': 
+				mygmail()
+			else:  #don't send an email if this is a repeat scan.
+				shutdown()
 	else:
 		myled.red(2)
 		mymessage.message8()
