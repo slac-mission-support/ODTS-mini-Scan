@@ -40,6 +40,7 @@ In order for this to work, port 25 must be opened on the device's IP by the Netw
 Three additional crontab files reside in the source code folder:  crontab_weekly.py, crontab_monthly.py, and crontab_yearly.py.  
 Crontab is scheduled to run them at the noted frequency.  At rollout the programs were empty and were intened for future expandability, 
 which prevents the need to recall the boxes and edit crontab.
+
 There is a configuration file called config.py that creates the config.ini.  Both of these files are excluded from the repo using the .gitignore file.
 
 In order for the box to operate the config.ini file must exist.  If the file is deleted, recreate it by running config.py.  This will
