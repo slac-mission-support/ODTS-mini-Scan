@@ -98,6 +98,7 @@ def return_user():
 			sleep(int(sleep_interval))
 		else:
 			firstname = user[0].split(", ")[1]
+			firstname_only = firstname.split(" ")[0]
 			lastname = user[0].split(",")[0]
 			mymessage.message6a(firstname, lastname)
 		sleep(sleep_interval)
@@ -111,7 +112,7 @@ def return_user():
 		config.set('General','slac_ID',str(slac_id))
 		config.set('General','return_date', str(return_date))
 		config.set('General','last_name',str(lastname))
-		config.set('General','first_name',str(firstname))
+		config.set('General','first_name',str(firstname_only))
 		config.set('General','email', str(email_address))
 		config.set('General','sup_email', str(sup_email))
 		config.set('General','dosi_number', str(dosi_number))

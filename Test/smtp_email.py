@@ -50,6 +50,7 @@ def send_email():
         slac_id = config.get('General', 'slac_ID')
         line_break = '<p>&#x000D;</p>'
         First_Name = config.get('General', 'first_name')
+        Last_Name = config.get('General', 'last_name')
         Dosi_Number = '***' + config.get('General', 'dosi_number')[-4:]
         todays_date = config.get('General','todays_date')
         Return_Date = config.get('General', 'return_date')
@@ -72,12 +73,12 @@ def send_email():
         df2 = data_unreturned.return_dataframe(str(slac_id))
         
         if df2 is None:
-                print("A")
+                #print("A")
                 dfPart2 = ''
                 df2_html = ''
                 text = ''
         else:
-                print("B")
+                #print("B")
                 text = ('Our records indicate you have additional unreturned dosimeter(s).  '
                         'This could be from a prior quarter, or having replaced a dosimeter left at home. \n')
                 df2_html = df2.to_html(index=False, col_space='150px', justify='center', bold_rows=True, border=1)
@@ -86,14 +87,15 @@ def send_email():
         #email address selection
         if email == 'None' or email_domain != 'slac.stanford.edu':
                 if sup_email == 'None' or sup_email_domain != 'slac.stanford.edu':
-                        print("C")
+                        #print("C")
                         recipient_email = sender_email
                         email_header_0 = ("This email was sent to RP because there are no email addresses on file for this individual "
                         "or their supervisor.\n")
                 else:
-                        print("D")
+                        #print("D")
                         recipient_email = sup_email
-                        email_header_0 = ("This email was sent to a supervisor because the employee does not have an email on file,"
+                        email_header_0 = ("This email was sent to a supervisor (" + sup_email + ")"
+                                        " because the employee does not have an email on file,"
                                         " or the email on file is not a SLAC email address.\n")
 
         else: #normal condition, i.e., email_domain == 'slac.stanford.edu':
@@ -112,7 +114,7 @@ def send_email():
         email_footer = ("\nIf you have any questions regarding the dosimetery service, "
                         "please contact ESH-DREP@SLAC.STANFORD.EDU. " + line_break +
                         "Sincerely," + line_break + "Radiation Protection Dosimetry Group" + line_break +
-                        "//" + slac_id + "//")
+                        "//" + slac_id + "//" + First_Name + " " + Last_Name + "//")
 
         smtp_host = config.get('SMTP','smtp_host')
         smtp_port = int(config.get('SMTP','smtp_port'))
@@ -140,4 +142,4 @@ def send_email():
                 print(e)
                 print(type(e))
 
-#send_email()
+send_email()
