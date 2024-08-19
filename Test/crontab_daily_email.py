@@ -22,10 +22,9 @@ def send_email():
         config = configparser.ConfigParser()
         file_name = os.path.dirname(__file__) + '/config.ini'
         config.read(file_name)
-        sender_email = config.get('General','sender_email')
-        return_to_email = config.get('General','return_to_email')
-        host_name = config.get('General','hostname')
-        location = config.get('General','location')
+        sender_email = config.get('SMTP','sender_email')
+        host_name = config.get('Device_Info','hostname')
+        location = config.get('Device_Info','location')
         todays_date = config.get('General','todays_date')
         days_history = config.get('General','days_history')
         line_break = '<p>&#x000D;</p>'
@@ -47,8 +46,8 @@ def send_email():
                         "please contact ESH-DREP@SLAC.STANFORD.EDU." + line_break +
                         "Sincerely," + line_break + "Radiation Protection Dosimetry Group" + line_break)
 
-        smtp_host = config.get('General','smtp_host')
-        smtp_port = int(config.get('General','smtp_port'))
+        smtp_host = config.get('SMTP','smtp_host')
+        smtp_port = int(config.get('SMTP','smtp_port'))
 
         subject = "Secure: " + host_name + " - " + location + ", " + days_history + "-day history as of " + todays_date
         path_to_file = 'history.xlsx'

@@ -13,10 +13,10 @@ import datetime
 import Sqlite_insert_data
 import ping
 import configparser
-import gmail_email as gmail
+import smtp_email as smtp
 
 
-mygmail = gmail.send_email
+mysmtp = smtp.send_email
 mylcd = I2C_LCD_driver.lcd()
 myled = class_rgb.LED()
 mymessage = LCD_messages.messages()
@@ -151,7 +151,7 @@ while program_status:
 			return_dosimeter()
 			write_to_sqlite()
 			if not return_date or return_date == 'None': 
-				mygmail()
+				mysmtp()
 			else:  #don't send an email if this is a repeat scan.
 				shutdown()
 	else:

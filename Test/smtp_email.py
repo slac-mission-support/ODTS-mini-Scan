@@ -46,10 +46,9 @@ def send_email():
         config = configparser.ConfigParser()
         config.read('config.ini')
         local_path = config.get('Database','local_repo_path')
-        sender_email = config.get('General','sender_email')
+        sender_email = config.get('SMTP','sender_email')
         slac_id = config.get('General', 'slac_ID')
         line_break = '<p>&#x000D;</p>'
-        #slac_id = '557730'
         First_Name = config.get('General', 'first_name')
         Dosi_Number = '***' + config.get('General', 'dosi_number')[-4:]
         todays_date = config.get('General','todays_date')
@@ -63,7 +62,6 @@ def send_email():
         sup_email_domain = evaluate_sup_email()[1]
         print(sup_email)
         
-        reply_email = config.get('General','return_to_email')
         Return_Date_Year = todays_date[0:4]
         Return_Date_Month = todays_date[5:7]
         Return_Date_Day = todays_date[8:10]
@@ -116,10 +114,8 @@ def send_email():
                         "Sincerely," + line_break + "Radiation Protection Dosimetry Group" + line_break +
                         "//" + slac_id + "//")
 
-        smtp_username = config.get('General','smtp_username')
-        smtp_password = config.get('General','smtp_password')
-        smtp_host = config.get('General','smtp_host')
-        smtp_port = int(config.get('General','smtp_port'))
+        smtp_host = config.get('SMTP','smtp_host')
+        smtp_port = int(config.get('SMTP','smtp_port'))
 
         subject = "Secure: Dosimeter Return Acknowledgment"
 
@@ -133,18 +129,6 @@ def send_email():
         message['To'] = 'ryanford@slac.stanford.edu' #recipient_email
 
         message.attach(MIMEText(email_header_0 + line_break + email_header_2 + line_break + email_header_3 + line_break + df2_html + line_break + email_footer, 'html'))
-
-        # print("Sender Email: " + sender_email) 
-        # print('Recipient Email: ' + recipient_email)
-        # print('\n')
-        # print(email_header_0)
-        # print(email_header_2)
-        # print(email_header_3)
-
-        # if df2 is not None:
-                # print(df2.to_string(index=False))
-
-        # print(email_footer)
 
         try:
                 
