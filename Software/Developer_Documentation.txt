@@ -27,9 +27,19 @@ composes the email, etc.
 The box runs two scheduled programs using the built-in utility crontab.  To edit the scheduler type crontab -e from a command prompt on the Pi.
 There is a file in this repo titled "Git_Pull_Scheduling.txt" which describes how to use the scheduler.
 
-The first program is scheduled daily which is check_for_updates.py.  This performs a git pull command to fetch latest software from the repo.
+The first program is scheduled daily which is check_for_updates.py.  This performs a git pull command to fetch latest software from the repo.  
+In order for this to work the gitconfig file in /home/ryanford needs to have an entry for a proxy server that was created as follows:
+$ git config --global http.proxy http://mgmt-authproxy01:3128.  The port has to be opened on the device's IP for this to work by the Networking team.
 
-The second program is scheduled daily which is daily_email.py.  This sends the Dosimetry Group a daily record of all transactions on the box.
+To view the contents use the Pi's file explorer or type git config --list --show-origin --show-scope from the $ prompt.
+
+The second program is scheduled daily which is daily_email.py.  This sends the Dosimetry Group a daily record of all transactions on the box.  
+Both the daily_email.py and smtp_email.py programs use SMTPOUT.slac.stanford.edu smtp relay.  
+In order for this to work, port 25 must be opened on the device's IP by the Networking team.
+
+Three additional crontab files reside in the source code folder:  crontab_weekly.py, crontab_monthly.py, and crontab_yearly.py.  
+Crontab is scheduled to run them at the noted frequency.  At rollout the programs were empty and were intened for future expandability, 
+which prevents the need to recall the boxes and edit crontab.
 
 There is a configuration file called config.py that creates the config.ini.  Both of these files are excluded from the repo using the .gitignore file.
 
@@ -44,8 +54,8 @@ The config.py and config.ini files will differ by the pathways to the ODTS TEST 
 The records.db SQLite file will differ by the data they contain from either ODTS TEST or PROD return transactions.
 Other files may differ temporarily while revising code and testing.
 
-The config files will also differ box to box by the hostname.  The first box is ODTSSCAN01, the second box ODTSSCAN02, etc.
-Cloning a box will only require change of the static IP address, as well as the hostname in the config file.  One would delete the ini file,
+The config files will also differ box to box by the hostname and device location.  The first box is ODTSSCAN01, the second box ODTSSCAN02, etc.
+Cloning a box will only require change of the static IP address, as well as the hostname and location in the config file.  One would delete the ini file,
 then change the config.py file to the correct host name, then run the config.py file to re-generate the ini file. Finally change the rc.local file.
 
 Python files are commented to help with the purpose and readability of the code.
