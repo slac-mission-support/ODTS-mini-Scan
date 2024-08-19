@@ -54,8 +54,8 @@ The config.py and config.ini files will differ by the pathways to the ODTS TEST 
 The records.db SQLite file will differ by the data they contain from either ODTS TEST or PROD return transactions.
 Other files may differ temporarily while revising code and testing.
 
-The config files will also differ box to box by the hostname.  The first box is ODTSSCAN01, the second box ODTSSCAN02, etc.
-Cloning a box will only require change of the static IP address, as well as the hostname in the config file.  One would delete the ini file,
+The config files will also differ box to box by the hostname and device location.  The first box is ODTSSCAN01, the second box ODTSSCAN02, etc.
+Cloning a box will only require change of the static IP address, as well as the hostname and location in the config file.  One would delete the ini file,
 then change the config.py file to the correct host name, then run the config.py file to re-generate the ini file. Finally change the rc.local file.
 
 Python files are commented to help with the purpose and readability of the code.
