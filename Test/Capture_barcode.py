@@ -30,7 +30,7 @@ config.read('config.ini')
 global new_return_date
 new_return_date = datetime.datetime.now()
 sleep_interval = float(config.get('General','sleep_time'))
-reader_number = config.get('General','hostname')
+reader_number = config.get('Device_Info','hostname')
 slac_id = config.get('General','slac_ID')
 
 def read_barcode_one_time():

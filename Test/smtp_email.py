@@ -56,11 +56,11 @@ def send_email():
         
         email = evaluate_email()[0]
         email_domain = evaluate_email()[1]
-        print(email)
-        print(email_domain)
+        #print(email)
+        #print(email_domain)
         sup_email = evaluate_sup_email()[0]
         sup_email_domain = evaluate_sup_email()[1]
-        print(sup_email)
+        #print(sup_email)
         
         Return_Date_Year = todays_date[0:4]
         Return_Date_Month = todays_date[5:7]
