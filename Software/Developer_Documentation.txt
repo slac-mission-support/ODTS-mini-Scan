@@ -27,9 +27,10 @@ composes the email, etc.
 The box runs two scheduled programs using the built-in utility crontab.  To edit the scheduler type crontab -e from a command prompt on the Pi.
 There is a file in this repo titled "Git_Pull_Scheduling.txt" which describes how to use the scheduler.
 
-The first program is scheduled daily which is check_for_updates.py.  This performs a git pull command to fetch latest software from the repo.
+The first program is scheduled daily which is check_for_updates.py.  This performs a git pull command to fetch latest software from the repo.  In order for this to work the gitconfig file in /home/ryanford needs to have an entry for a proxy server that was created as follows:
+$ git config --global http.proxy http://mgmt-authproxy01:3128.  The port has to be opened on the device's IP for this to work by the Networking team.
 
-The second program is scheduled daily which is daily_email.py.  This sends the Dosimetry Group a daily record of all transactions on the box.
+The second program is scheduled daily which is daily_email.py.  This sends the Dosimetry Group a daily record of all transactions on the box.  Both the daily_email.py and smtp_email.py programs use SMTPOUT.slac.stanford.edu smtp relay.  In order for this to work, port 25 must be opened on the device's IP by the Networking team.
 
 There is a configuration file called config.py that creates the config.ini.  Both of these files are excluded from the repo using the .gitignore file.
 
