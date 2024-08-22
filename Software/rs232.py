@@ -3,7 +3,7 @@ import serial
 
 # configure the serial connections (the parameters differs on the device you are connecting to)
 ser = serial.Serial(
-    port='COM2',
+    port='/dev/tty',
     baudrate=9600,
     timeout=1,
     parity=serial.PARITY_ODD,
