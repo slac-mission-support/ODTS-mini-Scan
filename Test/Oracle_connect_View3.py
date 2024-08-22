@@ -3,6 +3,7 @@ import pandas as pd
 import LCD_messages
 from time import sleep
 from configparser import ConfigParser, ExtendedInterpolation
+import os
 
 config = ConfigParser()
 
@@ -24,7 +25,8 @@ class return_ODTS_view3:
 		mymessage.message1()
 		
 	def return_info_view3(self, dosimeter_id):
-		config.read('config.ini')
+		file_name = os.path.dirname(__file__) + '/config.ini'
+		config.read(file_name)
 		odts_username = config.get('Database','ODTS_username')
 		odts_password = config.get('Database','ODTS_password')
 		odts_dsn = config.get('Database','ODTS_dsn')
@@ -35,7 +37,7 @@ class return_ODTS_view3:
 
 		if connection.is_healthy():
 				from pandas import DataFrame
-				print("Connection is Healthy on View 3 (issued with dosimeter #)")
+				#print("Connection is Healthy on View 3 (issued with dosimeter #)")
 				cursor = connection.cursor()
 				query = cursor.execute("select * from DOSE_TEST.DOSIMETER_issued_VW where dosimeter = '" + dosimeter_id + "'")
 
@@ -51,7 +53,7 @@ class return_ODTS_view3:
 						#[3] = email
 						#[4] = supervisor email
 		else:
-			print("Unusable Connection.  Please check the database and network settings.")
-			
+			#print("Unusable Connection.  Please check the database and network settings.")
+			return
 		cursor.close()
 		connection.close()

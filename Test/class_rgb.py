@@ -2,10 +2,12 @@
 import RPi.GPIO as GPIO
 from time import sleep
 import configparser
+import os
 
 #disable warnings (optional)
 config = configparser.ConfigParser()
-config.read('config.ini')
+file_name = os.path.dirname(__file__) + '/config.ini'
+config.read(file_name)
 
 local_repo_str = config.get('General','led_flash_sleep_interval')
 local_repo_float = float(local_repo_str)

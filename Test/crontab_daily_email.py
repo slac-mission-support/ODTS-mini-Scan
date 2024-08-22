@@ -13,6 +13,7 @@ import os
 import configparser
 import Sqlite_export_to_csv as dataframe
 import pandas as pd
+import os
 
 
 def send_email():

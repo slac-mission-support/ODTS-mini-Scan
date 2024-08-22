@@ -1,5 +1,6 @@
+#! /usr/bin/python3
 program_status = True
-barcode_input = str()
+#global barcode_input
 import I2C_LCD_driver
 from time import sleep
 from time import *
@@ -14,31 +15,56 @@ import Sqlite_insert_data
 import ping
 import configparser
 import smtp_email as smtp
+import os
+from contextlib import contextmanager
+import sys
 
+# @contextmanager
+# def suppress_stdout():
+	# with open(os.devnull, "w") as devnull:
+		# old_stdout = sys.stdout
+		# sys.stdout = devnull
+		# try:
+			# yield
+		# finally:
+			# sys.stdout = old_stdout
+			
 
 mysmtp = smtp.send_email
 mylcd = I2C_LCD_driver.lcd()
 myled = class_rgb.LED()
 mymessage = LCD_messages.messages()
 mydata3 = Oracle_connect_View3.return_ODTS_view3()
-
 myfunction = fn.Oracle_return_dosimeter
 sqlite = Sqlite_insert_data.sqlite
 myping = ping.network_ping
 config = configparser.ConfigParser()
-config.read('config.ini')
+file_name = os.path.dirname(__file__) + '/config.ini'
+config.read(file_name)
 global new_return_date
 new_return_date = datetime.datetime.now()
 sleep_interval = float(config.get('General','sleep_time'))
 reader_number = config.get('Device_Info','hostname')
 slac_id = config.get('General','slac_ID')
 
-def read_barcode_one_time():
 
-	print("Awaiting input")
-	barcode_input = input("Scan a barcode: ")
-	print(f"Scanned barcode:  {barcode_input}")
-	return barcode_input
+def read_barcode_one_time():
+	#barcode_input = str(input())
+	#return(barcode_input)
+	sys.stdout = open('logfile.txt', 'w')
+	try:
+		while True:
+			barcode_input = str(input())
+			if not barcode_input: break
+			print("A: " + barcode_input)
+			return(barcode_input)
+	
+	except EOFError:
+		print('B: ' + barcode_input)
+		print("EOF Error")
+
+
+
 	
 def setup():
 	myled.green(2)	
@@ -60,12 +86,7 @@ def read_barcode():
 
 
 def return_user():
-	#[0] = full name
-	#[1] = return date
-	#[2] = slac ID
-	#[3] = email
-	#[4] = supervisor email
-	#[5] = dosimeter number
+	#[0] = full name #[1] = return date #[2] = slac ID #[3] = email #[4] = supervisor email #[5] = dosimeter number
 	barcode = read_barcode()
 	user = mydata3.return_info_view3(barcode)
 	global return_date
@@ -84,14 +105,9 @@ def return_user():
 		dosi_number = barcode
 		mymessage.message10()
 		sleep(int(sleep_interval))
-		
-
 	else:
-
 		return_date = str(user[1])
-
 		slac_id = user[2]
-
 		person_name = user[0]
 		if str(user) == 'None':
 			mymessage.message7()
@@ -101,14 +117,11 @@ def return_user():
 			firstname_only = firstname.split(" ")[0]
 			lastname = user[0].split(",")[0]
 			mymessage.message6a(firstname, lastname)
-		sleep(sleep_interval)
-
+		sleep(int(sleep_interval))
 		email_address = user[3]
-
 		sup_email = user[4]
-
 		dosi_number = user[5]
-	#populate the ini file so it's available for the email class
+		#populate the ini file so it's available for the email class
 		config.set('General','slac_ID',str(slac_id))
 		config.set('General','return_date', str(return_date))
 		config.set('General','last_name',str(lastname))
@@ -128,6 +141,8 @@ def return_dosimeter():
 	else:
 		mymessage.message6b(str(datetime.datetime.now())[0:10])
 		sleep(int(sleep_interval))
+		mymessage.message9() #send email confirmation
+
 	
 def write_to_sqlite():
 	if str(return_date) == 'None':
@@ -136,12 +151,10 @@ def write_to_sqlite():
 	elif slac_id == 'N/A':
 		returndate =datetime.datetime.now()
 		return_type = 'UNUSED'
-		
 	else:
 		returndate = return_date  #what was queried from above, which does not store time component of the transaction
-		print(return_date)
+		#print(return_date)
 		return_type = 'REPEAT'
-		
 	sqlite.update_sqlite(reader_number, return_type, slac_id, captured_barcode, person_name, returndate)
 
 while program_status:

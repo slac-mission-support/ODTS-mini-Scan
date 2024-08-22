@@ -15,7 +15,8 @@ import pandas as pd
 
 def evaluate_email():
         config = configparser.ConfigParser()
-        config.read('config.ini')
+        file_name = os.path.dirname(__file__) + '/config.ini'
+        config.read(file_name)
         email_address = config.get('General','email')
         if not email_address or email_address == 'None':
                 return("None", "None")
@@ -28,7 +29,8 @@ evaluate_email()
 
 def evaluate_sup_email():
         config = configparser.ConfigParser()
-        config.read('config.ini')
+        file_name = os.path.dirname(__file__) + '/config.ini'
+        config.read(file_name)
         email_address = config.get('General','sup_email')
         if not email_address or email_address == 'None':
                 return("None", "None")
@@ -44,7 +46,8 @@ def send_email():
         
 
         config = configparser.ConfigParser()
-        config.read('config.ini')
+        file_name = os.path.dirname(__file__) + '/config.ini'
+        config.read(file_name)
         local_path = config.get('Database','local_repo_path')
         sender_email = config.get('SMTP','sender_email')
         slac_id = config.get('General', 'slac_ID')
@@ -99,7 +102,7 @@ def send_email():
                                         " or the email on file is not a SLAC email address.\n")
 
         else: #normal condition, i.e., email_domain == 'slac.stanford.edu':
-                print("E")
+                #print("E")
                 recipient_email = email
                 email_header_0 = ''
 
@@ -139,7 +142,8 @@ def send_email():
                    server.quit()
 
         except Exception as e:
-                print(e)
-                print(type(e))
+                #print(e)
+                #print(type(e))
+                return
 
 #send_email()
