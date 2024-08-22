@@ -9,3 +9,5 @@ for device_dict in hid.enumerate():
 
 #device is 0483, 0011 HEX
 #device is 1155, 17 DEC
+
+
