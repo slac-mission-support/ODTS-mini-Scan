@@ -1,4 +1,5 @@
 import hid
+import time
 
 try:
     print("Opening the device")
@@ -18,7 +19,9 @@ try:
 
     # write some data to the device
     print("Write the data")
-    h.write([0, 63, 35, 35] + [0] * 61)
+    #h.write([0, 63, 35, 35] + [0] * 61)
+    #h.write([3])
+    #h.write("123456")
 
     # wait
     time.sleep(0.05)
@@ -26,10 +29,11 @@ try:
     # read back the answer
     print("Read the data")
     while True:
-        d = h.read(64)
+        d = h.read(8)
         if d:
-            print(d)
+            print("Data: " + d)
         else:
+            print("no Data")
             break
 
     print("Closing the device")
