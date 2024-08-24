@@ -8,8 +8,8 @@ import serial
 import time
 
 #default usb device /dev/ttyS0 115200 8n1
-ser = serial.Serial("/dev/ttyACM0",115200,timeout=0.5)
-
+#ser = serial.Serial("/dev/ttyACM0",115200,timeout=0.5)
+ser = serial.Serial("/dev/tty0",115200,timeout=0.5)
 print('serial test start ...')
 if ser != None:
     print('serial ready...')
@@ -47,5 +47,7 @@ def get_baud_rate():
     print("get_baud_rate")
     send_cmd("\x02\xf0\x03""060702""?.")
     return
-...
-Please contact us to get full sample codes
+#...
+#Please contact us to get full sample codes
+get_baud_rate()
+

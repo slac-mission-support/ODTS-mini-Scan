@@ -20,6 +20,7 @@ try:
     # write some data to the device
     print("Write the data")
     #h.write([0, 63, 35, 35] + [0] * 61)
+    h.write([0, 63, 35, 35])
     #h.write([3])
     #h.write("123456")
 
@@ -29,7 +30,7 @@ try:
     # read back the answer
     print("Read the data")
     while True:
-        d = h.read(8)
+        d = h.read(64)
         if d:
             print("Data: " + d)
         else:
