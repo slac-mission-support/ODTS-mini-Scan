@@ -1,5 +1,11 @@
-from evdev import *
+import evdev
+#from evdev import *
+from evdev import categorize, InputDevice, ecodes
 import signal, sys, time
+import configparser
+import os
+from pathlib import Path
+from time import sleep
 
 keys = {
     # Scancode: ASCIICode
@@ -10,11 +16,15 @@ keys = {
     40: u'"', 41: u'`', 42: u'LSHFT', 43: u'\\', 44: u'Z', 45: u'X', 46: u'C', 47: u'V', 48: u'B', 49: u'N',
     50: u'M', 51: u',', 52: u'.', 53: u'/', 54: u'RSHFT', 56: u'LALT', 100: u'RALT'
 }
-dev = InputDevice('/dev/input/event0')
+
+dev = evdev.InputDevice('/dev/input/event13')
+
 def scanBarcode():
+  sleep(int(0.5))
   barcode = ''
   while True:
       event = dev.read_one()
+      #print("Event: " + str(event))
       if event is None and barcode == '':
         #There are blank events in between characters, 
         #so we don't want to break if we've started
@@ -24,13 +34,40 @@ def scanBarcode():
         if event is not None:
           if event.type == ecodes.EV_KEY:
             data = categorize(event)
+            #print("Data: " + str(data))
             if data.keystate == 0 and data.scancode != 42: # Catch only keyup, and not Enter
               if data.scancode == 28: #looking return key to be pressed
                 return barcode
               else:
-                  barcode += keys[data.scancode] # add the new char to the barcode
+                barcode += keys[data.scancode] # add the new char to the barcode
       except AttributeError:
-          print "error parsing stream"
-          return 'SOMETHING WENT WRONG'
-      if lcd.buttonPressed(lcd.LEFT):
-        return
+        print("error parsing stream")
+        return 'SOMETHING WENT WRONG'
+
+
+#config.read(file_name)
+
+while True:
+  input()
+  code = scanBarcode()
+  print("F " + str(code))
+
+  config = configparser.ConfigParser()
+  file_name = os.path.dirname(__file__) + '/config.ini'
+  config.read(file_name)
+  
+  try:
+    if code:
+      config.set('Scanner','barcode', str(code))
+      with open("config.ini", 'w') as configfile:
+          config.write(configfile)
+          configfile.flush()
+          configfile.close()
+    else:
+      config.set('Scanner','barcode', 'No code')
+      with open("config.ini", 'w') as configfile:
+          config.write(configfile)
+          configfile.flush()
+          configfile.close()
+  except Exception as e:
+    print(str(e))
