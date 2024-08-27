@@ -1,3 +1,5 @@
+# General Workflow
+
 The scanner box uses a USB camera to read the barcode, then makes a data request from a VIEW in the ODTS database.
 The data returned includes user information.  This data is displayed sequentially on the scanner box' LCD display.
 
@@ -8,28 +10,26 @@ Details related to the transaction are written locally on the box in an SQL Lite
 Finally, the box composes an email and sends it to the user or their supervisor providing a receipt of the return.
 The email will also show additional unreturned dosimeters, if any.  These are queried using the PERSON ID against a second VIEW.
 
-The IDE for the application is the GEANY editor on the raspberry pi.  Open the lid of the box and connect a monitor to the Raspberry PI board,
-then navigate to the cloned repository in the home subfolder "ODTS-mini-Scan" using the Pi OS file explorer.
+## Accessing the Software: 
+The IDE for the application is the GEANY editor on the raspberry pi.  Open the lid of the box and connect a monitor to the Raspberry PI board, then navigate to the cloned repository in the home subfolder "ODTS-mini-Scan" using the Pi OS file explorer.
 
+## Software Requirements:
 Requirements for the function of the source code are provided in the "Specification for mini-Scan.docx" in this repository.
 
-When the Pi boots, it starts by loading the programs listed in the rc.local file.  To edit the file, type sudo nano /etc/rc.local
-from a command prompt on the Pi.  This file must be revised when changing from TEST to PROD, which are subfolders within this repository.
+## Boot procedure:
+When the Pi boots, it starts by loading the programs listed in the rc.local file.  To edit the file, type sudo nano /etc/rc.local from a command prompt on the Pi.  This file must be revised when changing from TEST to PROD, which are subfolders within this repository.
 
-The first file the Pi loads is for the reset button.  The reset button must be held for 6 seconds then the Pi will reboot safely.
+* The first file the Pi loads is for the reset button.  The reset button must be held for 6 seconds then the Pi will reboot safely.
 
-The other file is the Capture_barcode.py file.  This file contains a series of methods followed by a while loop (which calls those methods) 
+* The other file is the Capture_barcode.py file.  This file contains a series of methods followed by a while loop (which calls those methods) 
 and runs continuously so that barcodes can be scanned sequentially and returned into the ODTS system.
 
-The Capture_barcode.py file references a set of 10 - 15 other class libraries which drive the LCD, pings the network, queries ODTS, 
-composes the email, etc.
+* The Capture_barcode.py file references a set of 10 - 15 other class libraries which drive the LCD, pings the network, queries ODTS, composes the email, etc.
 
-The box runs two scheduled programs using the built-in utility crontab.  To edit the scheduler type crontab -e from a command prompt on the Pi.
-There is a file in this repo titled "Git_Pull_Scheduling.txt" which describes how to use the scheduler.
+## Scheduled Programs (crontab):
+The box runs two scheduled programs using the built-in utility crontab.  To edit the scheduler type crontab -e from a command prompt on the Pi.  There is a file in this repo titled `Git_Pull_Scheduling.txt` which describes how to use the scheduler.
 
-The first program is scheduled daily which is crontab_daily_gitpull.py.  
-This performs a git pull command to fetch latest software from the repo.  
-In order for this to work the gitconfig file in /home/ryanford needs to have an entry for a proxy server that was created as follows:
+* The first program is scheduled daily which is crontab_daily_gitpull.py.  This performs a git pull command to fetch latest software from the repo.  In order for this to work the gitconfig file in /home/ryanford needs to have an entry for a proxy server that was created as follows:
 $ git config --global http.proxy http://mgmt-authproxy01:3128.  The port has to be opened on the device's IP for this to work by the Networking team.  See incident INC0457115 for more information.
 
 To view the contents use the Pi's file explorer or type git config --list --show-origin --show-scope from the $ prompt.
