@@ -18,7 +18,7 @@ import smtp_email as smtp
 import os
 from contextlib import contextmanager
 import sys
-#import barcode_reader
+import barcode_reader
 
 # @contextmanager
 # def suppress_stdout():
@@ -48,7 +48,7 @@ sleep_interval = float(config.get('General','sleep_time'))
 reader_number = config.get('Device_Info','hostname')
 slac_id = config.get('General','slac_ID')
 current_barcode = config.get('Scanner','barcode')
-#new_barcode = barcode_reader
+new_barcode = ''
 
 
 def read_barcode_one_time():
@@ -66,11 +66,13 @@ def read_barcode_one_time():
 		print('B: ' + barcode_input)
 		print("EOF Error")
 		
-# def read_barcode_from_eventfile():
-	
-	# new_barcode = barcode.scanBarcode()
-	# if new_barcode:
-		# return(barcode)
+def read_barcode_from_eventfile():
+	barcode = barcode_reader
+	new_barcode = barcode.scanBarcode()
+	print("New: " + new_barcode)
+	if new_barcode:
+		#print("Z")
+		return(new_barcode)
 
 
 	
@@ -85,8 +87,9 @@ def shutdown():
 	mylcd.backlight(0)
 	
 def read_barcode():
-	#barcode_input = read_barcode_from_eventfile()
-	barcode_input = read_barcode_one_time()
+	print("B")
+	barcode_input = read_barcode_from_eventfile()
+	#barcode_input = read_barcode_one_time()
 	mymessage.message2(barcode_input)
 	global captured_barcode
 	captured_barcode = barcode_input
@@ -96,6 +99,7 @@ def read_barcode():
 
 def return_user():
 	#[0] = full name #[1] = return date #[2] = slac ID #[3] = email #[4] = supervisor email #[5] = dosimeter number
+	#print("c")
 	barcode = read_barcode()
 	user = mydata3.return_info_view3(barcode)
 	global return_date
@@ -167,7 +171,7 @@ def write_to_sqlite():
 	sqlite.update_sqlite(reader_number, return_type, slac_id, captured_barcode, person_name, returndate)
 
 while program_status:
-	print("A")
+	#print("A")
 	network = myping.check_ping()
 	if network =='Network Active':
 			setup()

@@ -6,7 +6,7 @@ import configparser
 import os
 from pathlib import Path
 from time import sleep
-
+scanning = True
 keys = {
     # Scancode: ASCIICode
     0: None, 1: u'ESC', 2: u'1', 3: u'2', 4: u'3', 5: u'4', 6: u'5', 7: u'6', 8: u'7', 9: u'8',
@@ -20,43 +20,49 @@ keys = {
 dev = evdev.InputDevice('/dev/input/event13')
 
 def scanBarcode():
-  sleep(int(0.5))
-  barcode = ''
-  while True:
-      event = dev.read_one()
-      #print("Event: " + str(event))
-      if event is None and barcode == '':
-        #There are blank events in between characters, 
-        #so we don't want to break if we've started
-        #reading them
-        break #nothing of importance, start a new read. 
-      try:
-        if event is not None:
-          if event.type == ecodes.EV_KEY:
-            data = categorize(event)
-            #print("Data: " + str(data))
-            if data.keystate == 0 and data.scancode != 42: # Catch only keyup, and not Enter
-              if data.scancode == 28: #looking return key to be pressed
-                config = configparser.ConfigParser()
-                file_name = os.path.dirname(__file__) + '/config.ini'
-                config.read(file_name)
-                config.set('Scanner','barcode', str(barcode))
-                with open(file_name, 'w') as configfile:
-                    config.write(configfile)
-                    configfile.flush()
-                    configfile.close()
-                return barcode
-              else:
-                barcode += keys[data.scancode] # add the new char to the barcode
-      except AttributeError:
-        print("error parsing stream")
-        return 'SOMETHING WENT WRONG'
+  scanning = True
+  while scanning is True:
+    sleep(int(0.5))
+    barcode = ''
+    while True:
+        event = dev.read_one()
+        #print("Event: " + str(event))
+        if event is None and barcode == '':
+          #There are blank events in between characters, 
+          #so we don't want to break if we've started
+          #reading them
+          break #nothing of importance, start a new read. 
+        try:
+          if event is not None:
+            if event.type == ecodes.EV_KEY:
+              data = categorize(event)
+              #print("Data: " + str(data))
+              if data.keystate == 0 and data.scancode != 42: # Catch only keyup, and not Enter
+                if data.scancode == 28: #looking return key to be pressed
+                  config = configparser.ConfigParser()
+                  file_name = os.path.dirname(__file__) + '/config.ini'
+                  config.read(file_name)
+                  config.set('Scanner','barcode', str(barcode))
+                  with open(file_name, 'w') as configfile:
+                      config.write(configfile)
+                      configfile.flush()
+                      configfile.close()
+                  scanning = False
+                  return barcode
+                else:
+                  barcode += keys[data.scancode] # add the new char to the barcode
+        except AttributeError:
+          print("error parsing stream")
+          return 'SOMETHING WENT WRONG'
 
 
 #config.read(file_name)
 
-while True:
-  scanBarcode()
+
+#while scanning is True:
+#  barcode = scanBarcode()
+#  print("A: " + str(barcode))
+  
   # print("F " + str(code))
 
   # config = configparser.ConfigParser()
