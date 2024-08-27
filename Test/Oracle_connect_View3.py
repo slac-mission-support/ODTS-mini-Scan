@@ -25,7 +25,7 @@ class return_ODTS_view3:
 		mymessage.message1()
 		
 	def return_info_view3(self, dosimeter_id):
-		input()
+		#input()
 		file_name = os.path.dirname(__file__) + '/config.ini'
 		config.read(file_name)
 		odts_username = config.get('Database','ODTS_username')
