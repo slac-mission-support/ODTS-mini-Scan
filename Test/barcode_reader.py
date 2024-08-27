@@ -37,6 +37,14 @@ def scanBarcode():
             #print("Data: " + str(data))
             if data.keystate == 0 and data.scancode != 42: # Catch only keyup, and not Enter
               if data.scancode == 28: #looking return key to be pressed
+                config = configparser.ConfigParser()
+                file_name = os.path.dirname(__file__) + '/config.ini'
+                config.read(file_name)
+                config.set('Scanner','barcode', str(barcode))
+                with open(file_name, 'w') as configfile:
+                    config.write(configfile)
+                    configfile.flush()
+                    configfile.close()
                 return barcode
               else:
                 barcode += keys[data.scancode] # add the new char to the barcode
@@ -48,26 +56,25 @@ def scanBarcode():
 #config.read(file_name)
 
 while True:
-  input()
-  code = scanBarcode()
-  print("F " + str(code))
+  scanBarcode()
+  # print("F " + str(code))
 
-  config = configparser.ConfigParser()
-  file_name = os.path.dirname(__file__) + '/config.ini'
-  config.read(file_name)
+  # config = configparser.ConfigParser()
+  # file_name = os.path.dirname(__file__) + '/config.ini'
+  # config.read(file_name)
   
-  try:
-    if code:
-      config.set('Scanner','barcode', str(code))
-      with open("config.ini", 'w') as configfile:
-          config.write(configfile)
-          configfile.flush()
-          configfile.close()
-    else:
-      config.set('Scanner','barcode', 'No code')
-      with open("config.ini", 'w') as configfile:
-          config.write(configfile)
-          configfile.flush()
-          configfile.close()
-  except Exception as e:
-    print(str(e))
+  # try:
+    # if code:
+      # config.set('Scanner','barcode', str(code))
+      # with open("config.ini", 'w') as configfile:
+          # config.write(configfile)
+          # configfile.flush()
+          # configfile.close()
+    # else:
+      # config.set('Scanner','barcode', 'No code')
+      # with open("config.ini", 'w') as configfile:
+          # config.write(configfile)
+          # configfile.flush()
+          # configfile.close()
+  # except Exception as e:
+    # print(str(e))

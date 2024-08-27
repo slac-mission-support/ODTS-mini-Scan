@@ -16,6 +16,7 @@ GPIO.setwarnings(False)
 #Select GPIO Mode
 GPIO.setmode(GPIO.BCM)
 #set red,green and blue pins
+
 redPin = 4
 greenPin = 22
 bluePin = 23
@@ -23,8 +24,14 @@ bluePin = 23
 GPIO.setup(redPin,GPIO.OUT)
 GPIO.setup(greenPin,GPIO.OUT)
 GPIO.setup(bluePin,GPIO.OUT)
+GPIO.output(redPin,GPIO.HIGH)
+GPIO.output(greenPin,GPIO.HIGH)
+GPIO.output(bluePin,GPIO.LOW)
+
+
 
 class LED:
+
     def red(self, state):
         if state == 1: #steady
             GPIO.output(redPin,GPIO.HIGH)

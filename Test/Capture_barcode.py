@@ -18,6 +18,7 @@ import smtp_email as smtp
 import os
 from contextlib import contextmanager
 import sys
+#import barcode_reader
 
 # @contextmanager
 # def suppress_stdout():
@@ -29,7 +30,7 @@ import sys
 		# finally:
 			# sys.stdout = old_stdout
 			
-
+print('Ryan')
 mysmtp = smtp.send_email
 mylcd = I2C_LCD_driver.lcd()
 myled = class_rgb.LED()
@@ -46,23 +47,30 @@ new_return_date = datetime.datetime.now()
 sleep_interval = float(config.get('General','sleep_time'))
 reader_number = config.get('Device_Info','hostname')
 slac_id = config.get('General','slac_ID')
+current_barcode = config.get('Scanner','barcode')
+#new_barcode = barcode_reader
 
 
 def read_barcode_one_time():
-	#barcode_input = str(input())
-	#return(barcode_input)
+#	barcode_input = str(input())
+#	return(barcode_input)
 	sys.stdout = open('logfile.txt', 'w')
 	try:
 		while True:
 			barcode_input = str(input())
-			if not barcode_input: break
-			print("A: " + barcode_input)
+	#	if not barcode_input: break
+	#	print("A: " + barcode_input)
 			return(barcode_input)
 	
 	except EOFError:
 		print('B: ' + barcode_input)
 		print("EOF Error")
-
+		
+# def read_barcode_from_eventfile():
+	
+	# new_barcode = barcode.scanBarcode()
+	# if new_barcode:
+		# return(barcode)
 
 
 	
@@ -77,6 +85,7 @@ def shutdown():
 	mylcd.backlight(0)
 	
 def read_barcode():
+	#barcode_input = read_barcode_from_eventfile()
 	barcode_input = read_barcode_one_time()
 	mymessage.message2(barcode_input)
 	global captured_barcode
@@ -158,6 +167,7 @@ def write_to_sqlite():
 	sqlite.update_sqlite(reader_number, return_type, slac_id, captured_barcode, person_name, returndate)
 
 while program_status:
+	print("A")
 	network = myping.check_ping()
 	if network =='Network Active':
 			setup()
@@ -172,9 +182,6 @@ while program_status:
 		myled.red(2)
 		mymessage.message8()
 		sleep(int(sleep_interval))
-		
-#def compose_email():
-	
-#def send_email():
+
 
 
