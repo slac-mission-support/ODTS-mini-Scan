@@ -26,7 +26,6 @@ def scanBarcode():
     barcode = ''
     while True:
         event = dev.read_one()
-        #print("Event: " + str(event))
         if event is None and barcode == '':
           #There are blank events in between characters, 
           #so we don't want to break if we've started
@@ -36,7 +35,6 @@ def scanBarcode():
           if event is not None:
             if event.type == ecodes.EV_KEY:
               data = categorize(event)
-              #print("Data: " + str(data))
               if data.keystate == 0 and data.scancode != 42: # Catch only keyup, and not Enter
                 if data.scancode == 28: #looking return key to be pressed
                   config = configparser.ConfigParser()
@@ -56,31 +54,4 @@ def scanBarcode():
           return 'SOMETHING WENT WRONG'
 
 
-#config.read(file_name)
 
-
-#while scanning is True:
-#  barcode = scanBarcode()
-#  print("A: " + str(barcode))
-  
-  # print("F " + str(code))
-
-  # config = configparser.ConfigParser()
-  # file_name = os.path.dirname(__file__) + '/config.ini'
-  # config.read(file_name)
-  
-  # try:
-    # if code:
-      # config.set('Scanner','barcode', str(code))
-      # with open("config.ini", 'w') as configfile:
-          # config.write(configfile)
-          # configfile.flush()
-          # configfile.close()
-    # else:
-      # config.set('Scanner','barcode', 'No code')
-      # with open("config.ini", 'w') as configfile:
-          # config.write(configfile)
-          # configfile.flush()
-          # configfile.close()
-  # except Exception as e:
-    # print(str(e))

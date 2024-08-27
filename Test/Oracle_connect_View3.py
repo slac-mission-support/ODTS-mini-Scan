@@ -25,6 +25,7 @@ class return_ODTS_view3:
 		mymessage.message1()
 		
 	def return_info_view3(self, dosimeter_id):
+		input()
 		file_name = os.path.dirname(__file__) + '/config.ini'
 		config.read(file_name)
 		odts_username = config.get('Database','ODTS_username')
@@ -53,7 +54,7 @@ class return_ODTS_view3:
 						#[3] = email
 						#[4] = supervisor email
 		else:
-			#print("Unusable Connection.  Please check the database and network settings.")
+			print("Unusable Connection.  Please check the database and network settings.")
 			return
 		cursor.close()
 		connection.close()

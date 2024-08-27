@@ -33,11 +33,8 @@ class Oracle_return_dosimeter:
 			password=odts_password,
 			dsn=odts_dsn)
 
-#dosi_number = '6651225J'
-#host_name = 'ODTSSCAN01'
-
 		if connection.is_healthy():
-				#print("Connection on View 1 Function is Healthy")
+				print("Connection on View 1 Function is Healthy")
 				cursor = connection.cursor()
 				result = cursor.callfunc('DOSE_TEST.UPDATE_RETURN_DT', str, [dosi_number, host_name])
 				connection.commit()	
@@ -49,7 +46,7 @@ class Oracle_return_dosimeter:
 					return('Invalid')
 					
 		else:
-			#print("Unusable Connection.  Please check the database and network settings.")
+			print("Unusable Connection.  Please check the database and network settings.")
 			mymessage.message8()
 			sleep(sleep_interval)
 			setup()

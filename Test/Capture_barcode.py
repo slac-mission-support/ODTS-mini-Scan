@@ -20,17 +20,6 @@ from contextlib import contextmanager
 import sys
 import barcode_reader
 
-# @contextmanager
-# def suppress_stdout():
-	# with open(os.devnull, "w") as devnull:
-		# old_stdout = sys.stdout
-		# sys.stdout = devnull
-		# try:
-			# yield
-		# finally:
-			# sys.stdout = old_stdout
-			
-print('Ryan')
 mysmtp = smtp.send_email
 mylcd = I2C_LCD_driver.lcd()
 myled = class_rgb.LED()
@@ -50,16 +39,11 @@ slac_id = config.get('General','slac_ID')
 current_barcode = config.get('Scanner','barcode')
 new_barcode = ''
 
-
 def read_barcode_one_time():
-#	barcode_input = str(input())
-#	return(barcode_input)
 	sys.stdout = open('logfile.txt', 'w')
 	try:
 		while True:
 			barcode_input = str(input())
-	#	if not barcode_input: break
-	#	print("A: " + barcode_input)
 			return(barcode_input)
 	
 	except EOFError:
@@ -69,13 +53,9 @@ def read_barcode_one_time():
 def read_barcode_from_eventfile():
 	barcode = barcode_reader
 	new_barcode = barcode.scanBarcode()
-	print("New: " + new_barcode)
 	if new_barcode:
-		#print("Z")
 		return(new_barcode)
 
-
-	
 def setup():
 	myled.green(2)	
 	mylcd.backlight(0)
@@ -87,19 +67,15 @@ def shutdown():
 	mylcd.backlight(0)
 	
 def read_barcode():
-	print("B")
 	barcode_input = read_barcode_from_eventfile()
-	#barcode_input = read_barcode_one_time()
 	mymessage.message2(barcode_input)
 	global captured_barcode
 	captured_barcode = barcode_input
 	sleep(int(sleep_interval))	
 	return(str(barcode_input))
 
-
 def return_user():
 	#[0] = full name #[1] = return date #[2] = slac ID #[3] = email #[4] = supervisor email #[5] = dosimeter number
-	#print("c")
 	barcode = read_barcode()
 	user = mydata3.return_info_view3(barcode)
 	global return_date
@@ -166,12 +142,10 @@ def write_to_sqlite():
 		return_type = 'UNUSED'
 	else:
 		returndate = return_date  #what was queried from above, which does not store time component of the transaction
-		#print(return_date)
 		return_type = 'REPEAT'
 	sqlite.update_sqlite(reader_number, return_type, slac_id, captured_barcode, person_name, returndate)
 
 while program_status:
-	#print("A")
 	network = myping.check_ping()
 	if network =='Network Active':
 			setup()

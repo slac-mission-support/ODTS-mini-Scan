@@ -24,9 +24,10 @@ bluePin = 23
 GPIO.setup(redPin,GPIO.OUT)
 GPIO.setup(greenPin,GPIO.OUT)
 GPIO.setup(bluePin,GPIO.OUT)
+
 GPIO.output(redPin,GPIO.HIGH)
-GPIO.output(greenPin,GPIO.HIGH)
-GPIO.output(bluePin,GPIO.LOW)
+GPIO.output(greenPin,GPIO.LOW)
+GPIO.output(bluePin,GPIO.HIGH)
 
 
 
