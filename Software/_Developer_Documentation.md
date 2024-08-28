@@ -27,7 +27,7 @@ and runs continuously so that barcodes can be scanned sequentially and returned 
 * The Capture_barcode.py file references a set of 10 - 15 other class libraries which drive the LCD, pings the network, queries ODTS, composes the email, etc.
 
 ## Scheduled Programs (crontab):
-The box runs two scheduled programs using the built-in utility crontab.  To edit the scheduler type crontab -e from a command prompt on the Pi.  There is a file in this repo titled `Git_Pull_Scheduling.txt` which describes how to use the scheduler.
+The box runs two scheduled programs using the built-in utility crontab.  To edit the scheduler type `sudo crontab -e` from a command prompt on the Pi.  There is a file in this repo titled `Git_Pull_Scheduling.txt` which describes how to use the scheduler.
 
 * The first program is scheduled daily which is `crontab_daily_gitpull.py`.  This performs a git pull command to fetch latest software from the repo.  In order for this to work the gitconfig file in /home/ryanford needs to have an entry for a proxy server that was created as follows: `git config --global http.proxy http://mgmt-authproxy01:3128`.  The port has to be opened on the device's IP for this to work by the Networking team.  See incident INC0457115 for more information. To view the contents use the Pi's file explorer or type git config --list --show-origin --show-scope from the $ prompt.
 
