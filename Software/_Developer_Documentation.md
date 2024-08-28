@@ -44,11 +44,14 @@ The configuration file contains password data for ODTS as well as database pathw
 
 ## Test vs. Prod:
 The differences between the TEST and PROD folders are as follows:
-* The config.py and config.ini files will differ by the pathways to the ODTS TEST and PROD systems, as well as the local SQLite file.
+* The config.py and config.ini files will differ by:
+  * The pathways to the ODTS TEST and PROD systems, as well as the local SQLite file.
+  * The hostname and device location.  The first box is ODTSSCAN01, the second box ODTSSCAN02, etc.
+  * The production and test section will be commented in one, and uncommented in the other.
 * The records.db SQLite file will differ by the data they contain from either ODTS TEST or PROD return transactions.
-Other files may differ temporarily while revising code and testing.
-
-* The config files will also differ box to box by the hostname and device location.  The first box is ODTSSCAN01, the second box ODTSSCAN02, etc.
+* Other files may differ temporarily while revising code and testing.
+* The py files which send emails will differ by the "send to" address which in test is hard coded to a single person (who is testing) or listserv account.
+This prevents actual users from receiving test emails.
 
 ## Cloning a box:
 Cloning a box will require change of the static IP address, as well as the hostname and location in the config file.  One would delete the ini file, then change the config.py file to the correct host name, then run the config.py file to re-generate the ini file. Finally change the rc.local file.  See `_cloning_instructions`.md.
