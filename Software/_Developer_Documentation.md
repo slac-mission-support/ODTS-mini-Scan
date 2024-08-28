@@ -43,6 +43,8 @@ In order for the box to operate the `config.ini` file must exist.  If the file i
 The configuration file contains password data for ODTS as well as database pathways and other variables used throughout the library files.
 
 ## Test vs. Prod:
+All remotes will pull the repo changes on a daily basis.  Work in test then migrate to prod:
+
 Move Test to Prod by copying and pasting all files except:
 * `config.py` and `config.ini` if unchanged
 * `history.xlsx`
