@@ -60,14 +60,14 @@ def send_email():
         message = MIMEMultipart()
         message['Subject'] = subject
         message['From'] = sender_email
-        message['To'] = 'ryanford@slac.stanford.edu'
+        message['To'] = 'rp-dosi@slac.stanford.edu'
         message.attach(MIMEText(email_header_0 + line_break + df_html + line_break + email_footer, 'html'))
         
         with open(path_to_file,'rb') as file:
                 message.attach(MIMEApplication(file.read(), Name="history.xlsx"))
         try:
                 with smtplib.SMTP(smtp_host, smtp_port, timeout = 5) as server:
-                   server.sendmail(sender_email, 'ryanford@slac.stanford.edu', message.as_string())
+                   server.sendmail(sender_email, 'rp-dosi@slac.stanford.edu', message.as_string())
                    server.quit()
 
         except Exception as e:
