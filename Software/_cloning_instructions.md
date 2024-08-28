@@ -25,5 +25,6 @@
 * Execute the config.py file to create config.ini.
 * Edit the rc.local file (sudo nano /etc/rc.local) and uncomment the line which runs Capture_barcode.py on boot.  This line should be enabled when the box is run headless (without monitor).
 * Disconnect the monitor and reboot the Pi.  The new box should now perform like other production boxes.
+* All of the production boxes (remotes) will pull the repo on a daily basis.
   
  
