@@ -53,6 +53,15 @@ The differences between the TEST and PROD folders are as follows:
 * The py files which send emails will differ by the "send to" address which in test is hard coded to a single person (who is testing) or listserv account.
 This prevents actual users from receiving test emails.
 
+## Using GitHub
+* From the scanner box, change directory:  `cd /home/ryanford/ODTS-mini-Scan`'
+* Pull the changes in main:  `git pull` or `git pull --rebase`
+* Push changes from remote (`origin` or similar) to `main` (github repo):
+  * `git add --all`
+  * `git commit -m "description of changes to commit"`
+  * `git push -u origin main`
+  * Note:  Origin is the remote name for the first host (ODTSSCAN01).
+
 ## Cloning a box:
 Cloning a box will require change of the static IP address, as well as the hostname and location in the config file.  One would delete the ini file, then change the config.py file to the correct host name, then run the config.py file to re-generate the ini file. Finally change the rc.local file.  See `_cloning_instructions`.md.
 
