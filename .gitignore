@@ -1,9 +1,8 @@
 config.ini
 config.py
-crontab.log
-sqlite_master.db
-sqlite_schema.db
-test_records.db
-prod_records.db
-Capture_barcode.log
-history.xlsx
+*.log
+*.txt
+*.xlsx
+*.db
+*.pyc
+.lgd-nfy0
