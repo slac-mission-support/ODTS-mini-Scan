@@ -138,7 +138,7 @@ def send_email():
         try:
                 
                 with smtplib.SMTP(smtp_host, smtp_port, timeout = 5) as server:
-                   server.sendmail(sender_email, 'ryanford@slac.stanford.edu', message.as_string())
+                   server.sendmail(sender_email, 'rp-dosi@slac.stanford.edu', message.as_string())
                    server.quit()
 
         except Exception as e:
