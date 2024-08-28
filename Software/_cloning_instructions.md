@@ -16,6 +16,7 @@
   * connectivity with mgmt-authproxy01 on port 3128
   * The hostname of the box.  The first box is ODTSSCAN01.  The next would be ODTSSCAN02, and so on
 * Update the network settings with the new IP address on the RPi and reactivate the WiFi
+* Delete the ODTS-mini-Scan folder in `/home/ryanford`, then re-clone it to create a unique remote
 * Revise config.py in the Prod folder of ODTS-mini-Scan to reflect the new hostname.
 * Revise config.py to reflect the event file in /dev/input which receives data from the barcode scanner.
   * To determine which event file captures the scanner input, type `cat /proc/bus/input/devices` at a command prompt
