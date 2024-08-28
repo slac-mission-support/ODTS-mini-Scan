@@ -54,7 +54,7 @@ The differences between the TEST and PROD folders are as follows:
   * The hostname and device location in Scanner section.  The first box is ODTSSCAN01, the second box ODTSSCAN02, etc.
 * The prod_records.db SQLite file will differ by the data it contains versus what is in test.
 * The py files which send emails will differ by the "send to" address which in test is hard coded to a single person (who is testing) or listserv account.
-This prevents actual users from receiving test emails.
+This prevents actual users from receiving test emails.  Verify the recipients are correct in `smtp_email.py` and `crontab_daily_email.py`
 
 ## Using GitHub
 * From the scanner box, change directory:  `cd /home/ryanford/ODTS-mini-Scan`'
