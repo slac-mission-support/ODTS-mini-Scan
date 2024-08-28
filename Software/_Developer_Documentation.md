@@ -43,13 +43,16 @@ In order for the box to operate the `config.ini` file must exist.  If the file i
 The configuration file contains password data for ODTS as well as database pathways and other variables used throughout the library files.
 
 ## Test vs. Prod:
+Move Test to Prod by copying and pasting all files except:
+* `config.py` and `config.ini` if unchanged
+* `history.xlsx`
+* `sqlite_master.db`, `sqlite_schema.db`, `test_records.db` which has a production version `prod_records.db`
+
 The differences between the TEST and PROD folders are as follows:
 * The config.py and config.ini files will differ by:
-  * The pathways to the ODTS TEST and PROD systems, as well as the local SQLite file.
-  * The hostname and device location.  The first box is ODTSSCAN01, the second box ODTSSCAN02, etc.
-  * The production and test section will be commented in one, and uncommented in the other.
-* The records.db SQLite file will differ by the data they contain from either ODTS TEST or PROD return transactions.
-* Other files may differ temporarily while revising code and testing.
+  * The database section.
+  * The hostname and device location in Scanner section.  The first box is ODTSSCAN01, the second box ODTSSCAN02, etc.
+* The prod_records.db SQLite file will differ by the data it contains versus what is in test.
 * The py files which send emails will differ by the "send to" address which in test is hard coded to a single person (who is testing) or listserv account.
 This prevents actual users from receiving test emails.
 
