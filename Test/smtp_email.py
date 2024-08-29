@@ -131,7 +131,7 @@ def send_email():
         message = MIMEMultipart('alternative')
         message['Subject'] = subject
         message['From'] = sender_email
-        message['To'] = 'ryanford@slac.stanford.edu' #recipient_email
+        message['To'] = 'rp-dosi@slac.stanford.edu' #recipient_email
 
         message.attach(MIMEText(email_header_0 + line_break + email_header_2 + line_break + email_header_3 + line_break + df2_html + line_break + email_footer, 'html'))
 
