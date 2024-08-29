@@ -122,7 +122,7 @@ def send_email():
         smtp_host = config.get('SMTP','smtp_host')
         smtp_port = int(config.get('SMTP','smtp_port'))
 
-        subject = "Secure: Dosimeter Return Acknowledgment"
+        subject = ("Secure: Dosimeter Return Acknowledgment for " + Last_Name + " " + First_Name)
 
         # MIMEMultipart() creates a container for an email message that can hold
         # different parts, like text and attachments and in next line we are
