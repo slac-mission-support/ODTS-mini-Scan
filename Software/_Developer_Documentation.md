@@ -66,6 +66,10 @@ This prevents actual users from receiving test emails.  Verify the recipients ar
   * `git commit -m "description of changes to commit"`
   * `git push -u origin main`
   * Note:  Origin is the remote name for the first host (ODTSSCAN01).
+* Git Ignore
+  * Add the following files to .gitignore:
+  * Both config files (`config.ini`, `config.py`).  These contain password information that must be kept off Github
+  * Excel files, log files, .db files.  If these are not ignored, then git pull won't work because local changes are not committed
 
 ## Cloning a box:
 Cloning a box will require change of the static IP address, as well as the hostname and location in the config file.  One would delete the ini file, then change the config.py file to the correct host name, then run the config.py file to re-generate the ini file. Finally change the rc.local file.  See `_cloning_instructions`.md.
