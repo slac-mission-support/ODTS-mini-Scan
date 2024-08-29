@@ -17,7 +17,11 @@ keys = {
     50: u'M', 51: u',', 52: u'.', 53: u'/', 54: u'RSHFT', 56: u'LALT', 100: u'RALT'
 }
 
-dev = evdev.InputDevice('/dev/input/event13')
+config = configparser.ConfigParser()
+file_name = os.path.dirname(__file__) + '/config.ini'
+config.read(file_name)
+event_file = config.get('Scanner','event_file')
+dev = evdev.InputDevice(event_file)
 
 def scanBarcode():
   scanning = True
