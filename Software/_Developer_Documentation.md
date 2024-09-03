@@ -73,9 +73,10 @@ This prevents actual users from receiving test emails.  Verify the recipients ar
 
 ## Time Synchronization
 Time sync uses 3 SLAC time servers to set the time automatically.  Current time servers are as follows:
-* ns3.slac.stanford.edu
-* ns2.slac.stanford.edu
-* lbns1.slac.stanford.edu
+* `ns3.slac.stanford.edu`
+* `ns2.slac.stanford.edu`
+* `lbns1.slac.stanford.edu`
+
 To edit the time servers first type timedatectl status to determine the status, then `sudo nano /etc/systemd/timesyncd.conf` to edit the servers.
 
 ## Cloning a box:
