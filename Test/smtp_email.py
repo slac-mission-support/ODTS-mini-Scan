@@ -1,4 +1,4 @@
-cd ODT# All imports below are part of python built packages no need to install any exras
+# All imports below are part of python built packages no need to install any exras
 # Test git pull 2024-08-29
 # smtplib provides functionality to send emails using SMTP.
 import smtplib
