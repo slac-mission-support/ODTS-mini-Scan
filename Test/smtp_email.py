@@ -116,7 +116,7 @@ def send_email():
         
         email_footer = ("\nIf you have any questions regarding the dosimetery service, "
                         "please contact ESH-DREP@SLAC.STANFORD.EDU. " + line_break +
-                        "Sincerely," + line_break + "Radiation Protection Dosimetry Group")# + line_break +
+                        "Sincerely," + line_break + "Radiation Protection Dosimetry Group.")# + line_break +
                         #"//" + slac_id + "//" + First_Name + " " + Last_Name + "//" + "RF")
 
         smtp_host = config.get('SMTP','smtp_host')
