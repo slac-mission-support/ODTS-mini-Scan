@@ -34,9 +34,7 @@ config.read(file_name)
 global new_return_date
 new_return_date = datetime.datetime.now()
 sleep_interval = float(config.get('General','sleep_time'))
-#global reader_number 
-#reader_number = config.get('Device_Info','hostname')
-#print(reader_number)
+reader_number = config.get('Device_Info','hostname')
 slac_id = config.get('General','slac_ID')
 current_barcode = config.get('Scanner','barcode')
 new_barcode = ''
@@ -125,11 +123,6 @@ def return_user():
 			config.write(f)
 
 def return_dosimeter():
-	config = configparser.ConfigParser()
-	file_name = os.path.dirname(__file__) + '/config.ini'
-	config.read(file_name)	
-	reader_number = config.get('Device_Info','hostname')
-	#print("B: " + reader_number)
 	function_result = myfunction.execute_return(str(captured_barcode), reader_number)
 	if function_result == 'Already Returned':
 		mymessage.message6b(return_date)
