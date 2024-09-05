@@ -1,10 +1,7 @@
-Traceback (most recent call last):
-  File "/home/ryanford/ODTS-mini-Scan/Test/crontab_daily_gitpull.py", line 7, in <module>
-    local_repo = config.get('Proxy','repo')
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/configparser.py", line 797, in get
-    d = self._unify_values(section, vars)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/configparser.py", line 1168, in _unify_values
-    raise NoSectionError(section) from None
-configparser.NoSectionError: No section: 'Proxy'
+From https://github.com/slac-mission-support/ODTS-mini-Scan
+   23360a2..6a98eec  main       -> origin/main
+Updating 23360a2..6a98eec
+Fast-forward
+ Software/_Developer_Documentation.md | 2 +-
+ Test/smtp_email.py                   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)

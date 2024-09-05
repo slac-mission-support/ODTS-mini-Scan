@@ -1,18 +1,12 @@
-Traceback (most recent call last):
-  File "/usr/lib/python3/dist-packages/evdev/device.py", line 125, in __init__
-    fd = os.open(dev, os.O_RDWR | os.O_NONBLOCK)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: '/dev/input/event13'
+PING epndev.slac.stanford.edu (172.23.124.14) 56(84) bytes of data.
+64 bytes from epndev.slac.stanford.edu (172.23.124.14): icmp_seq=1 ttl=62 time=2.00 ms
 
-During handling of the above exception, another exception occurred:
+--- epndev.slac.stanford.edu ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 1.996/1.996/1.996/0.000 ms
+PING epndev.slac.stanford.edu (172.23.124.14) 56(84) bytes of data.
+64 bytes from epndev.slac.stanford.edu (172.23.124.14): icmp_seq=1 ttl=62 time=1.26 ms
 
-Traceback (most recent call last):
-  File "/home/ryanford/ODTS-mini-Scan/Test/Capture_barcode.py", line 21, in <module>
-    import barcode_reader
-  File "/home/ryanford/ODTS-mini-Scan/Test/barcode_reader.py", line 20, in <module>
-    dev = evdev.InputDevice('/dev/input/event13')
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3/dist-packages/evdev/device.py", line 127, in __init__
-    fd = os.open(dev, os.O_RDONLY | os.O_NONBLOCK)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: '/dev/input/event13'
+--- epndev.slac.stanford.edu ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 1.255/1.255/1.255/0.000 ms

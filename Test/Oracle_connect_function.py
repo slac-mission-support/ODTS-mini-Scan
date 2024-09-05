@@ -22,6 +22,7 @@ class Oracle_return_dosimeter:
 		mymessage.message1()
 		
 	def execute_return(dosi_number, host_name):
+		#print("C " + host_name)
 		file_name = os.path.dirname(__file__) + '/config.ini'
 		config.read(file_name)
 		odts_username = config.get('Database','ODTS_username')
