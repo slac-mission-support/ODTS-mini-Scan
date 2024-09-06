@@ -89,7 +89,8 @@ def send_email():
         else:
                 #print("B")
                 text = ('Our records indicate you have additional unreturned dosimeter(s).  '
-                        'This could be from a prior quarter, or having replaced a dosimeter left at home. \n')
+                        'This could be from a prior quarter, or having replaced a dosimeter left at home. \n'
+                        'If you just returned the temporary dosimeter then the table will include your current quarter dosimeter, which is due at the end of the quarter. \n')
                 df2_filtered = df2[df2["Quarter"].str.contains('|'.join(options), na=False)]
                 if len(df2_filtered) == 0:
                         df2_html = ''
