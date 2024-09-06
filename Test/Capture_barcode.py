@@ -52,7 +52,7 @@ def read_barcode_one_time():
 		
 def read_barcode_from_eventfile():
 	barcode = barcode_reader
-	new_barcode = barcode.scanBarcode()
+	new_barcode = str(barcode.scanBarcode())[:8]
 	if new_barcode:
 		return(new_barcode)
 

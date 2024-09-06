@@ -1,14 +1,6 @@
 PING epndev.slac.stanford.edu (172.23.124.14) 56(84) bytes of data.
-64 bytes from epndev.slac.stanford.edu (172.23.124.14): icmp_seq=1 ttl=62 time=7.49 ms
+64 bytes from epndev.slac.stanford.edu (172.23.124.14): icmp_seq=1 ttl=62 time=2.01 ms
 
 --- epndev.slac.stanford.edu ping statistics ---
 1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 7.491/7.491/7.491/0.000 ms
-Connection on View 1 Function is Healthy
-Traceback (most recent call last):
-  File "/home/ryanford/ODTS-mini-Scan/Test/Capture_barcode.py", line 161, in <module>
-    write_to_sqlite()
-  File "/home/ryanford/ODTS-mini-Scan/Test/Capture_barcode.py", line 153, in write_to_sqlite
-    sqlite.update_sqlite(reader_number, return_type, slac_id, captured_barcode, person_name, returndate)
-                         ^^^^^^^^^^^^^
-NameError: name 'reader_number' is not defined
+rtt min/avg/max/mdev = 2.008/2.008/2.008/0.000 ms
