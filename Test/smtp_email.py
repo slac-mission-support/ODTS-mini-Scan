@@ -56,15 +56,13 @@ def send_email():
         Last_Name = config.get('General', 'last_name')
         Dosi_Number = '***' + config.get('General', 'dosi_number')[-4:]
         todays_date = config.get('General','todays_date')
-        Return_Date = config.get('General', 'return_date')
+        #Return_Date = config.get('General', 'return_date')
         
         email = evaluate_email()[0]
         email_domain = evaluate_email()[1]
-        #print(email)
-        #print(email_domain)
         sup_email = evaluate_sup_email()[0]
         sup_email_domain = evaluate_sup_email()[1]
-        #print(sup_email)
+
         
         Return_Date_Year = todays_date[0:4]
         Return_Date_Month = todays_date[5:7]
@@ -83,11 +81,10 @@ def send_email():
 
         if df2 is None:
                 #print("A")
-                dfPart2 = ''
+                #dfPart2 = ''
                 df2_html = ''
                 text = ''
         else:
-                #print("B")
                 text = ('Our records indicate you have additional unreturned dosimeter(s).  '
                         'This could be from a prior quarter, or having replaced a dosimeter left at home with a temporary dosimeter. \n'
                         'If you just returned the temporary dosimeter then the table will include your current quarter dosimeter, which is due at the end of the quarter. \n')
@@ -97,24 +94,21 @@ def send_email():
                         text = ''
                 else:
                         df2_html = df2_filtered.to_html(index=False, col_space='150px', justify='center', bold_rows=True, border=1)
-                        dfPart2 = MIMEText(df2_html, 'html')
+                        #dfPart2 = MIMEText(df2_html, 'html')
 
         #email address selection
         if email == 'None' or email_domain != 'slac.stanford.edu':
                 if sup_email == 'None' or sup_email_domain != 'slac.stanford.edu':
-                        #print("C")
                         recipient_email = sender_email
                         email_header_0 = ("This email was sent to RP because there are no email addresses on file for this individual "
                         "or their supervisor.\n")
                 else:
-                        #print("D")
                         recipient_email = sup_email
                         email_header_0 = ("This email was sent to a supervisor (" + sup_email + ")"
                                         " because the employee does not have an email on file,"
                                         " or the email on file is not a SLAC email address.\n")
 
         else: #normal condition, i.e., email_domain == 'slac.stanford.edu':
-                #print("E")
                 recipient_email = email
                 email_header_0 = ''
 
@@ -154,8 +148,6 @@ def send_email():
                    server.quit()
 
         except Exception as e:
-                #print(e)
-                #print(type(e))
                 return
 
 send_email()
