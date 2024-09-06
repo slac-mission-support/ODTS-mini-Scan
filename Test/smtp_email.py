@@ -74,8 +74,16 @@ def send_email():
         os.chdir(local_path)
         data_unreturned = dataframe.return_dataframe_view1()
         df2 = data_unreturned.return_dataframe(str(slac_id))
-        
-        if df2 is None:
+
+        this_year = str(Return_Date_Year)
+        last_year = str(int(Return_Date_Year) - 1)
+        print(this_year)
+        print(last_year)
+        options = [this_year, last_year]
+        df2_filtered = df2["Quarter"].str.contains('|'.join(options))
+
+
+        if df2_filtered is None:
                 #print("A")
                 dfPart2 = ''
                 df2_html = ''
@@ -84,7 +92,7 @@ def send_email():
                 #print("B")
                 text = ('Our records indicate you have additional unreturned dosimeter(s).  '
                         'This could be from a prior quarter, or having replaced a dosimeter left at home. \n')
-                df2_html = df2.to_html(index=False, col_space='150px', justify='center', bold_rows=True, border=1)
+                df2_html = df2_filtered.to_html(index=False, col_space='150px', justify='center', bold_rows=True, border=1)
                 dfPart2 = MIMEText(df2_html, 'html')
 
         #email address selection
