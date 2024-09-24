@@ -22,6 +22,7 @@
 * Revise config.py in the Prod folder of ODTS-mini-Scan to reflect the new hostname.
 * Revise config.py to reflect the event file in /dev/input which receives data from the barcode scanner.
   * To determine which event file captures the scanner input, type `cat /proc/bus/input/devices` at a command prompt
+  * Boot the box without the keyboard and mouse, then plug them in after boot up before running the command.  This will ensure the correct event address without keyboard and mouse.  For example, the event file is event0 without keyboard and mouse, and event13 with them.  Future updates may reconfigure the event to connect by device ID rather than event filename.
 * Execute the config.py file to create config.ini.
 * Edit the rc.local file (sudo nano /etc/rc.local) and uncomment the line which runs Capture_barcode.py on boot.  This line should be enabled when the box is run headless (without monitor).
 * Disconnect the monitor and reboot the Pi.  The new box should now perform like other production boxes.
