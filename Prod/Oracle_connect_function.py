@@ -1,15 +1,17 @@
 import oracledb
 import LCD_messages
-from time import sleep
 import class_rgb
 import I2C_LCD_driver
+from configparser import ConfigParser, ExtendedInterpolation
+import os
 
-
+config = ConfigParser()
 
 mymessage = LCD_messages.messages()
 sleep_interval = 2
 mylcd = I2C_LCD_driver.lcd()
 myled = class_rgb.LED()
+config = ConfigParser(interpolation=None)
 
 class Oracle_return_dosimeter:
 	
@@ -20,15 +22,16 @@ class Oracle_return_dosimeter:
 		mymessage.message1()
 		
 	def execute_return(dosi_number, host_name):
-
+		file_name = os.path.dirname(__file__) + '/config.ini'
+		config.read(file_name)
+		odts_username = config.get('Database','ODTS_username')
+		odts_password = config.get('Database','ODTS_password')
+		odts_dsn = config.get('Database','ODTS_dsn')
 		connection = oracledb.connect (
-			user="ODTSSCAN",
+			user=odts_username,
 			#password is hard coded but should move to a network location and called from here.
-			password="akUD,38%49]bnkDU",
-			dsn="epndev.slac.stanford.edu/EPNQA")
-
-#dosi_number = '6651225J'
-#host_name = 'ODTSSCAN01'
+			password=odts_password,
+			dsn=odts_dsn)
 
 		if connection.is_healthy():
 				print("Connection on View 1 Function is Healthy")
@@ -44,9 +47,9 @@ class Oracle_return_dosimeter:
 					
 		else:
 			print("Unusable Connection.  Please check the database and network settings.")
-			# mymessage.message8()
-			# sleep(sleep_interval)
-			# setup()
+			mymessage.message8()
+			sleep(sleep_interval)
+			setup()
 			
 		cursor.close()
 		connection.close()

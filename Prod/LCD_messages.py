@@ -62,4 +62,10 @@ class messages():
         mylcd.lcd_clear()
         mylcd.lcd_display_string("CONFIRMATION", 1,0)
         mylcd.lcd_display_string("SENT VIA EMAIL", 2,0)
+        
+    def message10(self):
+        
+        mylcd.lcd_clear()
+        mylcd.lcd_display_string("UNUSED", 1,0)
+        mylcd.lcd_display_string("DOSIMETER", 2,0)
 

@@ -1,6 +1,6 @@
 PING epndev.slac.stanford.edu (172.23.124.14) 56(84) bytes of data.
-64 bytes from epndev.slac.stanford.edu (172.23.124.14): icmp_seq=1 ttl=62 time=3.15 ms
+64 bytes from epndev.slac.stanford.edu (172.23.124.14): icmp_seq=1 ttl=62 time=10.2 ms
 
 --- epndev.slac.stanford.edu ping statistics ---
 1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 3.154/3.154/3.154/0.000 ms
+rtt min/avg/max/mdev = 10.174/10.174/10.174/0.000 ms

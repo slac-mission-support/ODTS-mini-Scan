@@ -8,9 +8,7 @@
 # print('You pushed me')
 
 # sudo  nano /etc/rc.local
-# python3 /home/ryanford/Documents/Python/Prod/reset_button.py
-
-
+# python3 /home/ryanford/Documents/Python/Test/reset_button.py
 
 import RPi.GPIO as GPIO
 import time

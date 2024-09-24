@@ -1,20 +1,18 @@
-#used to find all dosimeters unreturned for a given person ID
+#######used to find all dosimeters unreturned for a given person ID
 #This is 4.2.3 in the specification
 import oracledb
 import pandas as pd
 import LCD_messages
 from time import sleep
-# import class_rgb
-# import I2C_LCD_driver
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 1000)
-# mymessage = LCD_messages.messages()
-# sleep_interval = 2
-# mylcd = I2C_LCD_driver.lcd()
-# myled = class_rgb.LED()
 
 class return_ODTS_view1:
 
@@ -26,17 +24,17 @@ class return_ODTS_view1:
 			
 	def return_info(self, person_id):
 		
+		odts_username = config.get('Database','ODTS_username')
+		odts_password = config.get('Database','ODTS_password')
+		odts_dsn = config.get('Database','ODTS_dsn')
 		connection = oracledb.connect (
-			user="ODTSSCAN",
-			#password is hard coded but should move to a network location and called from here.
-			password="akUD,38%49]bnkDU",
-			dsn="epndev.slac.stanford.edu/EPNQA")
-
-		#person_id = '400777'
+			user=odts_username,
+			password=odts_password,
+			dsn=odts_dsn)
 
 		if connection.is_healthy():
 				from pandas import DataFrame
-				print("Connection is Healthy on View 1 (Unreturned Person ID)")
+				#print("Connection is Healthy on View 1 (Unreturned Person ID)")
 				cursor = connection.cursor()
 				query = cursor.execute("select * from DOSE_TEST.DOSIMETER_unreturned_VW where person_id =" + person_id)
 				for row in query:
@@ -50,17 +48,12 @@ class return_ODTS_view1:
 					print("Supervisor email: ", row[7])
 					if row[8] is None:
 						print("Dosimeter is Unreturned")
-						#return("Unreturned")
 					else:
 						print("Return Date: ", str(row[8])[0:10])
 					print("xxxxxxxxxxxxxxxxxxxxxxxx")
 				
-				#print("View 1 Row Count: " + str(cursor.rowcount))
 		else:
 			print("Unusable Connection.  Please check the database and network settings.")
-			# mymessage.message8()
-			# sleep(sleep_interval)
-			# setup()
 			
 		cursor.close()
 		connection.close()

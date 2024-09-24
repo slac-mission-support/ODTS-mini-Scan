@@ -1,9 +1,16 @@
 import os
+import configparser
+
+
+
+config = configparser.ConfigParser()	
 
 class network_ping:
-	
+
 	def check_ping():
-			hostname = "epndev.slac.stanford.edu"
+			config.read('config.ini')
+			odts_dsn = config.get('Database','odts_server')
+			hostname = odts_dsn
 			response = os.system("ping -c 1 " + hostname)
 			
 			if response == 0:
@@ -13,7 +20,7 @@ class network_ping:
 				
 			return pingstatus
 			
-			
-	#ping_status = check_ping()
-	#print(ping_status)
+#a = network_ping
+#ping_status = a.check_ping()
+#print(ping_status)
 
