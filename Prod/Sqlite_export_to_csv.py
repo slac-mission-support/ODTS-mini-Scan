@@ -42,5 +42,5 @@ class sqlite_export:
         sorted_df = sorted_df.drop(columns=['DATETIME'])
         return(sorted_df)
 
-p = sqlite_export.exported_data()
-print(p)
+#p = sqlite_export.exported_data()
+#print(p)
