@@ -1,1 +1,6 @@
-Already up to date.
+From https://github.com/slac-mission-support/ODTS-mini-Scan
+   86039ba..61a5ffd  main       -> origin/main
+Updating 86039ba..61a5ffd
+Fast-forward
+ .gitignore | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
