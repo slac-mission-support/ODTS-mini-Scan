@@ -26,6 +26,7 @@
 * Execute the config.py file to create config.ini.
 * Edit the rc.local file (sudo nano /etc/rc.local) and uncomment the line which runs Capture_barcode.py on boot.  This line should be enabled when the box is run headless (without monitor).
 * Edit the crontab file `(sudo crontab -e)` to reflect Test or Production
+* Delete the data out of the production db.  Change directory to Prod then type `sqlite3`, then type `.open prod_records.db`, then type `DELETE * FROM TRANSX`
 * Disconnect the monitor and reboot the Pi.  The new box should now perform like other production boxes.
 * All of the production boxes (remotes) will pull the repo on a daily basis.
   
