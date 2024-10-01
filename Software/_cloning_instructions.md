@@ -25,6 +25,7 @@
   * Boot the box without the keyboard and mouse, then plug them in after boot up before running the command.  This will ensure the correct event address without keyboard and mouse.  For example, the event file is event0 without keyboard and mouse, and event13 with them.  Future updates may reconfigure the event to connect by device ID rather than event filename.
 * Execute the config.py file to create config.ini.
 * Edit the rc.local file (sudo nano /etc/rc.local) and uncomment the line which runs Capture_barcode.py on boot.  This line should be enabled when the box is run headless (without monitor).
+* Edit the crontab file `(sudo crontab -e)` to reflect Test or Production
 * Disconnect the monitor and reboot the Pi.  The new box should now perform like other production boxes.
 * All of the production boxes (remotes) will pull the repo on a daily basis.
   
