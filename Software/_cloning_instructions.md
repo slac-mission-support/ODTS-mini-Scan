@@ -30,6 +30,9 @@
 * Delete the data out of the production db.  Change directory to Prod then type `sqlite3`, then type `.open prod_records.db`, then type `DELETE FROM TRANSX`
 * Delete the ODTS-mini-Scan-old folder:  `sudo rm -r ODTS-mini-Scan-old`
 * Scet the barcode scanner to Auto Continuous Mode by scanning a code in the manual.
+* Adjust the contrast on the LCD display.
+* Remove the usb adapters for the keyboard and mouse.
+* Screw the lid back on.
 * Disconnect the monitor and reboot the Pi.  The new box should now perform like other production boxes.
 * All of the production boxes (remotes) will pull the repo on a daily basis.
   
