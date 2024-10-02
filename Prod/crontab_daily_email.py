@@ -50,7 +50,7 @@ def send_email():
         smtp_host = config.get('SMTP','smtp_host')
         smtp_port = int(config.get('SMTP','smtp_port'))
 
-        subject = "Secure: " + host_name + " - " + location + ", " + days_history + "-day history as of " + todays_date
+        subject = "Secure: " + host_name + " - " + location + ", " + days_history + "-day history."
         path_to_file = 'history.xlsx'
 
         # MIMEMultipart() creates a container for an email message that can hold
