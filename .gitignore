@@ -1,3 +1,5 @@
+config.ini
+config.py
 *.log
 *.txt
 *.xlsx
