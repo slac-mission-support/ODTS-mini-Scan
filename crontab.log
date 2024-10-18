@@ -1,7 +1,6 @@
-From https://github.com/slac-mission-support/ODTS-mini-Scan
-   037c0d0..037b750  main       -> origin/main
-Updating 037c0d0..037b750
+From https://github.com/ryanfordSLAC/ODTS-mini-Scan
+   1cb4954..7a18db6  main       -> origin/main
+Updating 1cb4954..7a18db6
 Fast-forward
- Prod/Sqlite_export_to_csv.py | 4 ++--
- Prod/crontab_daily_email.py  | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ .gitignore | 2 --
+ 1 file changed, 2 deletions(-)
