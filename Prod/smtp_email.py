@@ -82,8 +82,9 @@ def send_email():
         if df2 is None:
                 #print("A")
                 #dfPart2 = ''
-                df2_html = ''
-                text = ''
+                #df2_html = ''
+                #text = ''
+                return
         else:
                 text = ('Our records indicate you have either additional unreturned dosimeter(s), or an active quarterly dosimeter.  '
                         #'This could be from a prior quarter, or having replaced a dosimeter left at home with a temporary dosimeter. \n'
@@ -96,58 +97,58 @@ def send_email():
                         df2_html = df2_filtered.to_html(index=False, col_space='150px', justify='center', bold_rows=True, border=1)
                         #dfPart2 = MIMEText(df2_html, 'html')
 
-        #email address selection
-        if email == 'None' or email_domain != 'slac.stanford.edu':
-                if sup_email == 'None' or sup_email_domain != 'slac.stanford.edu':
-                        recipient_email = sender_email
-                        email_header_0 = ("This email was sent to RP because there are no email addresses on file for this individual "
-                        "or their supervisor.\n")
-                else:
-                        recipient_email = sup_email
-                        email_header_0 = ("This email was sent to a supervisor (" + sup_email + ")"
-                                        " because the employee does not have an email on file,"
-                                        " or the email on file is not a SLAC email address.\n")
+                #email address selection
+                if email == 'None' or email_domain != 'slac.stanford.edu':
+                        if sup_email == 'None' or sup_email_domain != 'slac.stanford.edu':
+                                recipient_email = sender_email
+                                email_header_0 = ("This email was sent to RP because there are no email addresses on file for this individual "
+                                "or their supervisor.\n")
+                        else:
+                                recipient_email = sup_email
+                                email_header_0 = ("This email was sent to a supervisor (" + sup_email + ")"
+                                                " because the employee does not have an email on file,"
+                                                " or the email on file is not a SLAC email address.\n")
 
-        else: #normal condition, i.e., email_domain == 'slac.stanford.edu':
-                recipient_email = email
-                email_header_0 = ''
+                else: #normal condition, i.e., email_domain == 'slac.stanford.edu':
+                        recipient_email = email
+                        email_header_0 = ''
 
-        email_header_2 = ("Dear " + First_Name + ',' + line_break +
-                        "Thank you for returning your dosimeter #" + Dosi_Number + ".  "
-                        "We scanned it into our system on " + Return_Date_calculated + ".  "
-                        "If you are on a quarterly exchange, please remember to return "
-                        "your next dosimeter within 2 weeks of the due date. \n")
-                        
-        email_header_3 = text
-        
-        email_footer = ("\nIf you have any questions regarding the dosimetery service, "
-                        "please contact ESH-DREP@SLAC.STANFORD.EDU. " + line_break +
-                        "Sincerely," + line_break + "Radiation Protection Dosimetry Group")# + line_break +
-                        #"//" + slac_id + "//" + First_Name + " " + Last_Name + "//" + "RF")
-
-        smtp_host = config.get('SMTP','smtp_host')
-        smtp_port = int(config.get('SMTP','smtp_port'))
-
-        subject = ("Secure: Dosimeter Return Acknowledgment for " + First_Name + " " + Last_Name)
-
-        # MIMEMultipart() creates a container for an email message that can hold
-        # different parts, like text and attachments and in next line we are
-        # attaching different parts to email container like subject and others.
-
-        message = MIMEMultipart('alternative')
-        message['Subject'] = subject
-        message['From'] = sender_email
-        message['To'] = recipient_email
-
-        message.attach(MIMEText(email_header_0 + line_break + email_header_2 + line_break + email_header_3 + line_break + df2_html + line_break + email_footer, 'html'))
-
-        try:
+                email_header_2 = ("Dear " + First_Name + ',' + line_break +
+                                "Thank you for returning your dosimeter #" + Dosi_Number + ".  "
+                                "We scanned it into our system on " + Return_Date_calculated + ".  "
+                                "If you are on a quarterly exchange, please remember to return "
+                                "your next dosimeter within 2 weeks of the due date. \n")
+                                
+                email_header_3 = text
                 
-                with smtplib.SMTP(smtp_host, smtp_port, timeout = 5) as server:
-                   server.sendmail(sender_email, recipient_email, message.as_string())
-                   server.quit()
+                email_footer = ("\nIf you have any questions regarding the dosimetery service, "
+                                "please contact ESH-DREP@SLAC.STANFORD.EDU. " + line_break +
+                                "Sincerely," + line_break + "Radiation Protection Dosimetry Group")# + line_break +
+                                #"//" + slac_id + "//" + First_Name + " " + Last_Name + "//" + "RF")
 
-        except Exception as e:
-                return
+                smtp_host = config.get('SMTP','smtp_host')
+                smtp_port = int(config.get('SMTP','smtp_port'))
+
+                subject = ("Secure: Dosimeter Return Acknowledgment for " + First_Name + " " + Last_Name)
+
+                # MIMEMultipart() creates a container for an email message that can hold
+                # different parts, like text and attachments and in next line we are
+                # attaching different parts to email container like subject and others.
+
+                message = MIMEMultipart('alternative')
+                message['Subject'] = subject
+                message['From'] = sender_email
+                message['To'] = recipient_email
+
+                message.attach(MIMEText(email_header_0 + line_break + email_header_2 + line_break + email_header_3 + line_break + df2_html + line_break + email_footer, 'html'))
+
+                try:
+                        
+                        with smtplib.SMTP(smtp_host, smtp_port, timeout = 5) as server:
+                        server.sendmail(sender_email, recipient_email, message.as_string())
+                        server.quit()
+
+                except Exception as e:
+                        return
 
 #send_email()
