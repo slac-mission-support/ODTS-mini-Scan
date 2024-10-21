@@ -138,14 +138,14 @@ def send_email():
                 message = MIMEMultipart('alternative')
                 message['Subject'] = subject
                 message['From'] = sender_email
-                message['To'] = recipient_email
+                message['To'] = 'rp-dosi@slac.stanford.edu' #recipient_email
 
                 message.attach(MIMEText(email_header_0 + line_break + email_header_2 + line_break + email_header_3 + line_break + df2_html + line_break + email_footer, 'html'))
 
                 try:
                         
                         with smtplib.SMTP(smtp_host, smtp_port, timeout = 5) as server:
-                        server.sendmail(sender_email, recipient_email, message.as_string())
+                        server.sendmail(sender_email, 'rp-dosi@slac.stanford.edu', message.as_string())
                         server.quit()
 
                 except Exception as e:
