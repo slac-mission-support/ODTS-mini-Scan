@@ -1,6 +1,6 @@
-From https://github.com/slac-mission-support/ODTS-mini-Scan
-   86039ba..61a5ffd  main       -> origin/main
-Updating 86039ba..61a5ffd
+From https://github.com/ryanfordSLAC/ODTS-mini-Scan
+   1cb4954..7a18db6  main       -> origin/main
+Updating 1cb4954..7a18db6
 Fast-forward
- .gitignore | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .gitignore | 2 --
+ 1 file changed, 2 deletions(-)
