@@ -72,6 +72,7 @@ def send_email():
         os.chdir(local_path)
         data_unreturned = dataframe.return_dataframe_view1()
         df2 = data_unreturned.return_dataframe(str(slac_id))
+        print(df2)
 
         this_year = str(Return_Date_Year)
         last_year = str(int(Return_Date_Year) - 1)
@@ -84,8 +85,10 @@ def send_email():
                 #dfPart2 = ''
                 #df2_html = ''
                 #text = ''
+                #print('A')
                 return
         else:
+                #print('b')
                 text = ('Our records indicate you have either additional unreturned dosimeter(s), or an active quarterly dosimeter.  '
                         #'This could be from a prior quarter, or having replaced a dosimeter left at home with a temporary dosimeter. \n'
                         'These records are displayed below. \n')
@@ -143,7 +146,7 @@ def send_email():
                 message.attach(MIMEText(email_header_0 + line_break + email_header_2 + line_break + email_header_3 + line_break + df2_html + line_break + email_footer, 'html'))
 
                 try:
-                        
+                        #print(message)
                         with smtplib.SMTP(smtp_host, smtp_port, timeout = 5) as server:
                                 server.sendmail(sender_email, 'rp-dosi@slac.stanford.edu', message.as_string())
                                 server.quit()
@@ -151,4 +154,4 @@ def send_email():
                 except Exception as e:
                         return
 
-#send_email()
+send_email()
