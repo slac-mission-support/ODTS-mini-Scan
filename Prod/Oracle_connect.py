@@ -9,6 +9,9 @@ import configparser
 config = configparser.ConfigParser()
 config.read('config.ini')
 
+config2 = configparser.ConfigParser()
+config2.read('pwconfig.ini')
+
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
@@ -25,8 +28,8 @@ class return_ODTS_view1:
 	def return_info(self, person_id):
 		
 		odts_username = config.get('Database','ODTS_username')
-		odts_password = config.get('Database','ODTS_password')
 		odts_dsn = config.get('Database','ODTS_dsn')
+		odts_password = config2.get('Password','ODTS_password')
 		connection = oracledb.connect (
 			user=odts_username,
 			password=odts_password,

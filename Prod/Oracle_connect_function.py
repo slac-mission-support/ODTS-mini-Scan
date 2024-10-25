@@ -6,6 +6,7 @@ from configparser import ConfigParser, ExtendedInterpolation
 import os
 
 config = ConfigParser()
+config2 = ConfigParser()
 
 mymessage = LCD_messages.messages()
 sleep_interval = 2
@@ -23,10 +24,14 @@ class Oracle_return_dosimeter:
 		
 	def execute_return(dosi_number, host_name):
 		file_name = os.path.dirname(__file__) + '/config.ini'
+		file_name_pw = os.path.dirname(__file__) + '/pwconfig.ini'
 		config.read(file_name)
 		odts_username = config.get('Database','ODTS_username')
-		odts_password = config.get('Database','ODTS_password')
 		odts_dsn = config.get('Database','ODTS_dsn')
+
+		config2.read(file_name_pw)
+		odts_password = config2.get('Password','ODTS_password')
+
 		connection = oracledb.connect (
 			user=odts_username,
 			#password is hard coded but should move to a network location and called from here.
