@@ -4,12 +4,12 @@ import oracledb
 import pandas as pd
 import LCD_messages
 from time import sleep
-import configparser
+from configparser import ConfigParser, ExtendedInterpolation
 
-config = configparser.ConfigParser()
+config = ConfigParser(interpolation=None)
 config.read('config.ini')
 
-config2 = configparser.ConfigParser()
+config2 = ConfigParser(interpolation=None)
 config2.read('pwconfig.ini')
 
 pd.set_option('display.max_colwidth', None)
