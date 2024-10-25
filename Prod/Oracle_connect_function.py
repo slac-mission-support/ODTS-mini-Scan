@@ -5,14 +5,12 @@ import I2C_LCD_driver
 from configparser import ConfigParser, ExtendedInterpolation
 import os
 
-config = ConfigParser()
-config2 = ConfigParser()
-
 mymessage = LCD_messages.messages()
 sleep_interval = 2
 mylcd = I2C_LCD_driver.lcd()
 myled = class_rgb.LED()
 config = ConfigParser(interpolation=None)
+config2 = ConfigParser(interpolation=None)
 
 class Oracle_return_dosimeter:
 	

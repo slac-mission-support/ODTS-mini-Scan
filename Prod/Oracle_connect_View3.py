@@ -5,7 +5,7 @@ from time import sleep
 from configparser import ConfigParser, ExtendedInterpolation
 import os
 
-config = ConfigParser()
+#config = ConfigParser()
 
 #This is 4.2.1 in the specification
 #Returns details for a dosimeter regardless of whether it was returned or not
