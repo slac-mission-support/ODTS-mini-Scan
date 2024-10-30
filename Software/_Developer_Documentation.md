@@ -89,5 +89,10 @@ Python files are commented to help with the purpose and readability of the code.
 Any changes to the source code must be followed by the testing plan which outlines 10 or more scenarios to test.  Use of the box must be
 documented in Dosimetry Group (DG) procedures, and testing results must be published in Dosimetry Records.
 
+## Changing the ODTS Server Password
+The ODTS password is kept in the `pwconfig.ini` file, which is a separate ini file than the normal config.ini.  The pwconfig.ini file is not excluded in gitignore since the information related to servername and username is kept locally on each box, and ignored by git.
 
+First change the password when notified by the database administrator.
+
+To change the password in all the boxes, using VS Code from Windows open `pwconfig.py` and change the password between the quotes.  Then run the file to generate a new pwconfig.ini file.  The boxes will pull the repo at 1 AM so the next day everything should keep working.
 
