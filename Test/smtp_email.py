@@ -56,6 +56,7 @@ def send_email():
         Last_Name = config.get('General', 'last_name')
         Dosi_Number = '***' + config.get('General', 'dosi_number')[-4:]
         todays_date = config.get('General','todays_date')
+        host = config.get('Device_Info', 'hostname')
         #Return_Date = config.get('General', 'return_date')
         
         email = evaluate_email()[0]
@@ -72,10 +73,33 @@ def send_email():
         os.chdir(local_path)
         data_unreturned = dataframe.return_dataframe_view1()
         df2 = data_unreturned.return_dataframe(str(slac_id))
+        print(df2)
 
         this_year = str(Return_Date_Year)
         last_year = str(int(Return_Date_Year) - 1)
         options = [this_year, last_year]
+
+        #ODTSSCAN01 = Dosimetry Lab (Listserv only, only with additional unreturned)
+        #ODTSSCAN02 = Main Gate (receipts to all users, all conditions)
+        #ODTSSCAN03 = Ryan's Office (receipts to ryan only, all conditions)
+        #ODTSSCAN04 = Security (receipts to all users, all conditions)
+        #ODTSSCAN05 = Kyle's Office (Listserv only, only with additional unreturned)
+
+        # if host == 'ODTSSCAN01':
+        #         #statement
+        #         return
+        # elif host == 'ODTSSCAN02':
+        #         return
+        #         #statement
+        # elif host == 'ODTSSCAN03':
+        #         return
+        #         #statement
+        # elif host == 'ODTSSCAN04':
+        #         return
+        #         #statement
+        # else: #ODTSSCAN05
+        #         return
+        #         #statement
 
 
 
@@ -84,8 +108,10 @@ def send_email():
                 #dfPart2 = ''
                 #df2_html = ''
                 #text = ''
+                #print('A')
                 return
         else:
+                #print('b')
                 text = ('Our records indicate you have either additional unreturned dosimeter(s), or an active quarterly dosimeter.  '
                         #'This could be from a prior quarter, or having replaced a dosimeter left at home with a temporary dosimeter. \n'
                         'These records are displayed below. \n')
@@ -97,7 +123,7 @@ def send_email():
                         df2_html = df2_filtered.to_html(index=False, col_space='150px', justify='center', bold_rows=True, border=1)
                         #dfPart2 = MIMEText(df2_html, 'html')
 
-        #email address selection
+                #email address selection
                 if email == 'None' or email_domain != 'slac.stanford.edu':
                         if sup_email == 'None' or sup_email_domain != 'slac.stanford.edu':
                                 recipient_email = sender_email
@@ -143,10 +169,10 @@ def send_email():
                 message.attach(MIMEText(email_header_0 + line_break + email_header_2 + line_break + email_header_3 + line_break + df2_html + line_break + email_footer, 'html'))
 
                 try:
-                        
+                        #print(message)
                         with smtplib.SMTP(smtp_host, smtp_port, timeout = 5) as server:
-                        server.sendmail(sender_email, 'rp-dosi@slac.stanford.edu', message.as_string())
-                        server.quit()
+                                server.sendmail(sender_email, 'rp-dosi@slac.stanford.edu', message.as_string())
+                                server.quit()
 
                 except Exception as e:
                         return

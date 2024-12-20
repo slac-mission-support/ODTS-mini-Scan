@@ -5,7 +5,7 @@ from time import sleep
 from configparser import ConfigParser, ExtendedInterpolation
 import os
 
-config = ConfigParser()
+#config = ConfigParser()
 
 #This is 4.2.1 in the specification
 #Returns details for a dosimeter regardless of whether it was returned or not
@@ -15,6 +15,7 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 1000)
 
 config = ConfigParser(interpolation=None)
+config2 = ConfigParser(interpolation=None)
 
 class return_ODTS_view3:
 	
@@ -27,10 +28,13 @@ class return_ODTS_view3:
 	def return_info_view3(self, dosimeter_id):
 		#input()
 		file_name = os.path.dirname(__file__) + '/config.ini'
+		file_name_pw = os.path.dirname(__file__) + '/pwconfig.ini'
 		config.read(file_name)
 		odts_username = config.get('Database','ODTS_username')
-		odts_password = config.get('Database','ODTS_password')
 		odts_dsn = config.get('Database','ODTS_dsn')
+		config2.read(file_name_pw)
+		odts_password = config2.get('Password','ODTS_password')
+
 		connection = oracledb.connect (
 			user=odts_username,
 			password=odts_password,

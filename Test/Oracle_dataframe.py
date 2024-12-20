@@ -9,16 +9,19 @@ pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 1000)
 
-config = ConfigParser()
 config = ConfigParser(interpolation=None)
+config2 = ConfigParser(interpolation=None)
 
 class return_dataframe_view1:
 	
 	def return_dataframe(self, person_id):
 		config.read('config.ini')
 		odts_username = config.get('Database','ODTS_username')
-		odts_password = config.get('Database','ODTS_password')
 		odts_dsn = config.get('Database','ODTS_dsn')
+
+		config2.read('pwconfig.ini')
+		odts_password = config2.get('Password','ODTS_password')
+
 		connection = oracledb.connect (
 			user=odts_username,
 			password=odts_password,
