@@ -85,21 +85,21 @@ def send_email():
         #ODTSSCAN04 = Security (receipts to all users, all conditions)
         #ODTSSCAN05 = Kyle's Office (Listserv only, only with additional unreturned)
 
-        if host == 'ODTSSCAN01':
-                #statement
-                return
-        elif host == 'ODTSSCAN02':
-                return
-                #statement
-        elif host == 'ODTSSCAN03':
-                return
-                #statement
-        elif host == 'ODTSSCAN04':
-                return
-                #statement
-        else: #ODTSSCAN05
-                return
-                #statement
+        # if host == 'ODTSSCAN01':
+        #         #statement
+        #         return
+        # elif host == 'ODTSSCAN02':
+        #         return
+        #         #statement
+        # elif host == 'ODTSSCAN03':
+        #         return
+        #         #statement
+        # elif host == 'ODTSSCAN04':
+        #         return
+        #         #statement
+        # else: #ODTSSCAN05
+        #         return
+        #         #statement
 
 
 
