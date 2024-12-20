@@ -56,6 +56,7 @@ def send_email():
         Last_Name = config.get('General', 'last_name')
         Dosi_Number = '***' + config.get('General', 'dosi_number')[-4:]
         todays_date = config.get('General','todays_date')
+        host = config.get('Device_Info', 'hostname')
         #Return_Date = config.get('General', 'return_date')
         
         email = evaluate_email()[0]
@@ -77,6 +78,23 @@ def send_email():
         this_year = str(Return_Date_Year)
         last_year = str(int(Return_Date_Year) - 1)
         options = [this_year, last_year]
+
+        #ODTSSCAN01 = Dosimetry Lab (Listserv only, only with additional unreturned)
+        #ODTSSCAN02 = Main Gate (receipts to all users, all conditions)
+        #ODTSSCAN03 = Ryan's Office (receipts to ryan only, all conditions)
+        #ODTSSCAN04 = Security (receipts to all users, all conditions)
+        #ODTSSCAN05 = Kyle's Office (Listserv only, only with additional unreturned)
+
+        if host = 'ODTSSCAN01':
+                #statement
+        elif host = 'ODTSSCAN02':
+                #statement
+        elif host = 'ODTSSCAN03':
+                #statement
+        elif host = 'ODTSSCAN04':
+                #statement
+        else: #ODTSSCAN05
+                #statement
 
 
 
