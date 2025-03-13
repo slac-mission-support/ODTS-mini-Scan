@@ -9,6 +9,9 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 # MIMEApplication attaching application-specific data (like CSV files) to email messages.
 from email.mime.application import MIMEApplication
+from email.mime.base import MIMEBase
+from email import encoders
+
 import os
 import configparser
 import Sqlite_export_to_csv as dataframe
@@ -63,8 +66,12 @@ def send_email():
         message['To'] = 'rp-dosi@slac.stanford.edu'
         message.attach(MIMEText(email_header_0 + line_break + df_html + line_break + email_footer, 'html'))
         
-        with open(path_to_file,'rb') as file:
-                message.attach(MIMEApplication(file.read(), Name="history.xlsx"))
+
+
+
+        #with open(path_to_file,'rb') as file:
+                
+        #        message.attach(MIMEApplication(file.read(), Name="history.xlsx"))
         try:
                 with smtplib.SMTP(smtp_host, smtp_port, timeout = 5) as server:
                    server.sendmail(sender_email, 'rp-dosi@slac.stanford.edu', message.as_string())

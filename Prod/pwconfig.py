@@ -8,8 +8,8 @@ def create_config():
     config.add_section('Password')
 
     #Password
-    config.set('Password','ODTS_password','rmAF-25$52{abcRT')
-    
+    #config.set('Password','ODTS_password','rmAF-25$52{abcRT')
+    config.set('Password','ODTS_password','vBrO-31$13{defRY') #3/13/25
 
     with open("pwconfig.ini", 'w') as configfile:
         config.write(configfile)
