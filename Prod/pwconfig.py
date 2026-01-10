@@ -10,7 +10,8 @@ def create_config():
     #Password
     #config.set('Password','ODTS_password','rmAF-25$52{abcRT')
     #config.set('Password','ODTS_password','vBrO-31$13{defRY') #3/13/25
-    config.set('Password','ODTS_password','hQmy-51$15{defAN') #8/11/2025
+    #config.set('Password','ODTS_password','hQmy-51$15{defAN') #8/11/2025
+    config.set('Password','ODTS_password','hQju-3$43{defZX') #1/9/2026
     
     with open("pwconfig.ini", 'w') as configfile:
         config.write(configfile)
