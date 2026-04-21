@@ -25,7 +25,9 @@ class return_dataframe_view1:
 		connection = oracledb.connect (
 			user=odts_username,
 			password=odts_password,
-			dsn=odts_dsn)
+			dsn=odts_dsn,
+			encryption_type="AES256",
+			crypto_checksum_type="SHA512")
 
 		if connection.is_healthy():
 				from pandas import DataFrame
