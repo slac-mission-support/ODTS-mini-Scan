@@ -34,9 +34,7 @@ class Oracle_return_dosimeter:
 			user=odts_username,
 			#password is hard coded but should move to a network location and called from here.
 			password=odts_password,
-			dsn=odts_dsn,
-			encryption_type="AES256",
-			crypto_checksum_type="SHA512")
+			dsn=odts_dsn)
 
 		if connection.is_healthy():
 				print("Connection on View 1 Function is Healthy")
