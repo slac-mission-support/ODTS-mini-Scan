@@ -63,3 +63,7 @@ class return_ODTS_view1:
 			
 		cursor.close()
 		connection.close()
+
+test = return_ODTS_view1()
+data = test.return_info(400777)
+print(data)
