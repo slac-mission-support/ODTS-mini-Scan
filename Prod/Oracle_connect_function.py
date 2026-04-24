@@ -5,6 +5,8 @@ import I2C_LCD_driver
 from configparser import ConfigParser, ExtendedInterpolation
 import os
 
+oracledb.init_oracle_client(lib_dir="/opt/oracle/instantclient_23_26")
+
 mymessage = LCD_messages.messages()
 sleep_interval = 2
 mylcd = I2C_LCD_driver.lcd()

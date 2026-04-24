@@ -5,6 +5,8 @@ from time import sleep
 from configparser import ConfigParser, ExtendedInterpolation
 import os
 
+oracledb.init_oracle_client(lib_dir="/opt/oracle/instantclient_23_26")
+
 #config = ConfigParser()
 
 #This is 4.2.1 in the specification

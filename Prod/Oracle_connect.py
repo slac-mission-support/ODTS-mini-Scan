@@ -6,6 +6,8 @@ import LCD_messages
 from time import sleep
 from configparser import ConfigParser, ExtendedInterpolation
 
+oracledb.init_oracle_client(lib_dir="/opt/oracle/instantclient_23_26")
+
 config = ConfigParser(interpolation=None)
 config.read('config.ini')
 

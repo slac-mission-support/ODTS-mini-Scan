@@ -4,6 +4,9 @@ import oracledb
 import pandas as pd
 from configparser import ConfigParser, ExtendedInterpolation
 
+oracledb.init_oracle_client(lib_dir="/opt/oracle/instantclient_23_26")
+
+
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
