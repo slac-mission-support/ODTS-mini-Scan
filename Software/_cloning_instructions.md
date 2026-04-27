@@ -27,7 +27,7 @@
 * Execute the config.py file to create config.ini.
 * Edit the rc.local file (sudo nano /etc/rc.local) and uncomment the line which runs Capture_barcode.py on boot.  This line should be enabled when the box is run headless (without monitor).
 * Edit the crontab file `(sudo crontab -e)` to reflect Test or Production
-* Delete the data out of the production db.  Change directory to Prod then type `sqlite3`, then type `.open prod_records.db`, then type `DELETE FROM TRANSX`
+* Delete the data out of the production db.  Change directory to Prod then type `sqlite3`, then type `.open prod_records.db`, then type `DELETE FROM TRANSX;`
 * Delete the ODTS-mini-Scan-old folder:  `sudo rm -r ODTS-mini-Scan-old`
 * Scet the barcode scanner to Auto Continuous Mode by scanning a code in the manual.
 * Adjust the contrast on the LCD display.
