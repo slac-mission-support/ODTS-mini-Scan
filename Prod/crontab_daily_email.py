@@ -74,5 +74,5 @@ def send_email():
                 print(e)
                 print(type(e))
 
-#if __name__ == '__send_email__':
-#send_email()
+if __name__ == '__send_email__':
+send_email()
