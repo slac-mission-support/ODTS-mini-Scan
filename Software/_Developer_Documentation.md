@@ -94,5 +94,5 @@ The ODTS password is kept in the `pwconfig.ini` file, which is a separate ini fi
 
 First change the password when notified by the database administrator.
 
-To change the password in all the boxes, using VS Code from Windows open `pwconfig.py` and change the password between the quotes.  Then run the file to generate a new pwconfig.ini file.  The boxes will pull the repo at 1 AM so the next day everything should keep working.
+To change the password in all the boxes, using VS Code from Windows open `pwconfig.py` and change the password between the quotes.  Then run the file to generate a new pwconfig.ini file.  Note that the new ini file is deposited into the repo root folder, and has to be copied into the Prod folder.  The boxes will pull the repo at 1 AM so the next day everything should keep working.
 
