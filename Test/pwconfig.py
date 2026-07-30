@@ -1,9 +1,9 @@
 from configparser import ConfigParser, ExtendedInterpolation
-
+import os
 
 def create_config():
     config = ConfigParser(interpolation=None)
-
+    path = os.path.dirname(os.path.abspath(__file__))
     #Sections
     config.add_section('Password')
 
@@ -11,7 +11,7 @@ def create_config():
     #config.set('Password','ODTS_password','rmAF-25$52{abcRT')
     config.set('Password','ODTS_password','rmAF-25%45{defRG')
 
-    with open("pwconfig.ini", 'w') as configfile:
+    with open(path + "/pwconfig.ini", 'w') as configfile:
         config.write(configfile)
         configfile.flush()
         configfile.close()
@@ -21,8 +21,8 @@ def create_config():
 if __name__== '__main__':
     create_config()
 
-
-read_file = open("pwconfig.ini", "r")
+path = os.path.dirname(os.path.abspath(__file__))
+read_file = open(path + "/pwconfig.ini", "r")
 content = read_file.read()
 print("Contents:\n")
 print(content)
